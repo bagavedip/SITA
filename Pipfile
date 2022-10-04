@@ -1,0 +1,45 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+pytest-django = "*"
+pytest-cov = "*"
+django-debug-toolbar = "*"
+pre-commit = "*"
+mixer = "*"
+pytest = "*"
+pytest-faker = "*"
+pytest-lazy-fixture = "*"
+flake8 = "*"
+pytest-xdist = "*"
+
+[packages]
+django = "==4.0"
+django-rest-swagger = "==2.2.0"
+python-decouple = "==3.4"
+psycopg2 = "==2.8.6"
+django-filter = "==2.4.0"
+django-storages = "==1.11.1"
+rules = "==2.2"
+django-q = "==1.3.5"
+django-ses = "==1.0.3"
+croniter = "==1.0.10"
+django-oauth-toolkit = "==1.5.0"
+langdetect = "==1.0.8"
+fcm-django = "==0.3.7"
+djangorestframework-simplejwt = "==5.2.0"
+djangorestframework = "==3.13.1"
+django-cors-headers = "==3.13.0"
+django-pandas = "==0.6.6"
+django-tenants = "==3.4.2"
+pandas = "==1.4.2"
+click = "8.1.3"
+django-colorfield="==0.7.1"
+Pillow="==9.2.0"
+django-simple-history = "==2.12.0"
+cryptography = "==3.4.7"
+
+[requires]
+python_version = "3.10"
