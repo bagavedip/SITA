@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from SITA.custom_serializer import DynamicFieldSerializerMixin
+from SITA_backend.custom_serializer import DynamicFieldSerializerMixin
 from users.models import User
 
 

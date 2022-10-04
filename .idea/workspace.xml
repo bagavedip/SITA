@@ -2,145 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="extractor code">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/SITA.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/custom_serializer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SITA/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/customers/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/models/rules.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/models/usecase.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/services/rules.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/services/usecase.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared_stage/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/color.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/filter_map.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/oei_color.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/oei_constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/constants/oei_filters.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0002_remove_extractor_itsm_account_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0003_historicalstg_itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0004_historicalextractor_itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0005_alter_extractor_itsm_account_id_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0006_alter_historicalextractor_itsm_options.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0007_alter_extractor_siem_close_time_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/0008_alter_extractor_siem_assigned_to_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/add_comment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/add_oei_comment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/assets.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/assign_task.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/audit_itsm_extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/extractor_itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/extractor_siem.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/extractor_soar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/fact_insights.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/fact_oei.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/geolocations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/source_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/stg_itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/stg_siem.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/models/stg_soar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/Insights_timeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/assets.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/assign_user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/creadentials.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/geolocations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/insights.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/masterdata.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/oei_serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/oei_ticket_details.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/oei_timeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/serializers/ticket_details.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/assets.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/assign_task.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/extractor_itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/extractor_siem.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/extractor_soar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/geolocations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/insight_hub_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/masterdata.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/services/tickets_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/assets.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/assign_task.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/category.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/geolocation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/hub.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/itsm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sita/views/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/managers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/serializers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/serializers/user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/services/user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/custom_serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/custom_serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SITA/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/serializers/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +102,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664862658039</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="extractor code">
+      <created>1664862873223</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1664862873223</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -262,11 +139,6 @@
           <url>file://$PROJECT_DIR$/sita/services/extractor_itsm.py</url>
           <line>22</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sita/views/extractor.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
