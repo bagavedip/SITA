@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="project main folder name change">
+    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="changes in extractor code for audit table">
+      <change afterPath="$PROJECT_DIR$/sita/models/audit_siem_extractor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sita/models/audit_soar_extractor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/models/audit_itsm_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/audit_itsm_extractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/models/extractor_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/extractor_itsm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/models/stg_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/stg_itsm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sita/services/extractor_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_itsm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sita/services/extractor_siem.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_siem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/views/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/services/extractor_soar.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_soar.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664867074419</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="changes in extractor code for audit table">
+      <created>1665038475222</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1665038475222</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -138,14 +144,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="extractor code" />
     <MESSAGE value="project main folder name change" />
-    <option name="LAST_COMMIT_MESSAGE" value="project main folder name change" />
+    <MESSAGE value="changes in extractor code for audit table" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes in extractor code for audit table" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sita/services/extractor_itsm.py</url>
-          <line>23</line>
+          <line>30</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

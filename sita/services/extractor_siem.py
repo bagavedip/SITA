@@ -8,6 +8,8 @@ from django.utils.timezone import make_aware
 from urllib.parse import urljoin
 
 from sita.models import EXTRACTOR_SIEM
+from sita.models.audit_itsm_extractor import Audit_ITSM
+from sita.models.audit_siem_extractor import Audit_SIEM
 
 # Remove warnings messages
 requests.packages.urllib3.disable_warnings()
@@ -51,11 +53,18 @@ class SiemService:
 
     @staticmethod
     def qradar():
+        now = datetime.now()
+        end_time = datetime.now()
+        status = "Failed"
         try:
             base_url = 'https://192.168.200.206'
             api_key = 'f52645f4-0dcf-400f-bb6c-56c9e20f87c6'
             qradar = SiemService(base_url=base_url, api_key=api_key)
-            times = datetime.now()
+            queryset = Audit_SIEM.objects.filter(status="Failed").last()
+            if queryset:
+                times = queryset.end_time
+            else:
+                times = datetime.now()
             proper_time_format = f"{times.date().day}/{str(times.date().month).zfill(2)}/{times.date().year}"
             start_time = datetime.strptime(proper_time_format, DATE_FORMAT)
             name = None
@@ -112,6 +121,18 @@ class SiemService:
                     "siem_id": offense.get('id', None),
                 }
             a = EXTRACTOR_SIEM.objects.create(**siem)
+            end_time = datetime.now()
+            status = "Success"
             return a
         except Exception as e:
+            end_time = datetime.now()
+            status = "Failed"
             return e
+        finally:
+            audit_dict = {
+                "start_date": now,
+                "end_date": end_time,
+                "status": status
+            }
+            audit = Audit_ITSM.objects.create(**audit_dict)
+            return audit_dict

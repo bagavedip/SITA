@@ -3,9 +3,9 @@ from rest_framework import routers
 
 from .views.assign_task import AssignTaskViewset
 from .views.extractor import Extractor
-from .views.hub import InsightHub
+from .views.insights import InsightHub
 from .views.process import ProcessViewSet
-from .views.itsm import ITSMViewSet
+from .views.oei import ITSMViewSet
 from .views.assets import AssetViewSet
 from .views.functions import FunctionViewSet
 from .views.entity import EntityViewSet
