@@ -63,7 +63,6 @@ class SiemService:
             offenses = qradar.get_offenses(start_time=start_time,
                                            filter=None if domain_id is None else ' and domain_id = {}'.format(domain_id))
             final_offenses = []
-            final_siem = []
             for offense in offenses:
                 rules = []
                 for rule in offense.get('rules'):
@@ -88,11 +87,11 @@ class SiemService:
                     "destination_networks": offense.get('[destination_networks]', None),
                     "source_network": offense.get('source_network', None),
                     "category_count": offense.get('category_count', None),
-                    "close_time": str(offense.get('close_time', None)),
+                    "close_time": offense.get('close_time', None),
                     "remote_destination_count": offense.get('remote_destination_count', None),
-                    "start_time": str(offense.get('start_time', None)),
+                    "start_time": offense.get('start_time', None),
                     "magnitude": offense.get('magnitude', None),
-                    "last_updated_time": str(offense.get('last_updated_time', None)),
+                    "last_updated_time": offense.get('last_updated_time', None),
                     "credibility": offense.get('credibility', None),
                     "id": offense.get('id', None),
                     "categories": offense.get('', None),
@@ -101,7 +100,7 @@ class SiemService:
                     "log_sources": offense.get('', None),
                     "closing_reason_id": offense.get('closing_reason_id', None),
                     "device_count": offense.get('device_count', None),
-                    "first_persisted_time": str(offense.get('first_persisted_time', None)),
+                    "first_persisted_time": offense.get('first_persisted_time', None),
                     "offense_type": offense.get('offense_type', None),
                     "relevance": offense.get('relevance', None),
                     "domain_id": offense.get('domain_id', None),
@@ -112,8 +111,7 @@ class SiemService:
                     "rule_details": offense.get('rule_details', None),
                     "siem_id": offense.get('id', None),
                 }
-                final_siem.append(siem)
-            a = EXTRACTOR_SIEM.objects.bulk_create(final_siem)
+            a = EXTRACTOR_SIEM.objects.create(**siem)
             return a
         except Exception as e:
             return e

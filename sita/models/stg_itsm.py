@@ -175,4 +175,4 @@ class STG_ITSM(models.Model):
     response_time = models.CharField(_("reesponse_time"), max_length=200, null=True, help_text=_("response_time"))
 
     # AuditLog table config
-    history = HistoricalRecords(_("stg_itsm_history"), table_name="stg_itsm_history")
+    # history = HistoricalRecords(_("stg_itsm_history"), table_name="stg_itsm_history")

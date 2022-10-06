@@ -3,14 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="project main folder name change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/custom_serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/custom_serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SITA/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SITA_backend/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/serializers/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/audit_itsm_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/audit_itsm_extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/extractor_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/extractor_itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/stg_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/stg_itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/services/extractor_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/services/extractor_siem.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_siem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/views/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/extractor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,14 +34,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/dipika/SITA",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dipika/SITA&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/sita/serializers" />
@@ -116,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664867025934</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="project main folder name change">
+      <created>1664867074419</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1664867074419</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,14 +144,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sita/services/extractor_siem.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sita/services/extractor_itsm.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="2" />
+          <line>23</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

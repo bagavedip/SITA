@@ -42,8 +42,8 @@ class EXTRACTOR_ITSM(models.Model):
                               help_text=_("Assets"))
     is_trashed = models.CharField(_("is_trashed"),null=True,max_length=10000,
                                   help_text=_("Is trashed"))
-    itsm_id = models.CharField(_("id"),null=False,max_length=10000,
-                               help_text=_("Id"),primary_key=True)
+    itsm_id = models.CharField(_("id"), null=False, max_length=10000,
+                               help_text=_("Id"), primary_key=True)
     assigned_time_display_value = models.CharField(_("assigned_time_display_value"),max_length=10000,null=True,
                                                    help_text=_("Assigned time display value"))
     assigned_time_value = models.CharField(_("assigned_time_value"),null=True,max_length=10000,
@@ -258,4 +258,4 @@ class EXTRACTOR_ITSM(models.Model):
     subject = models.CharField(_("subject"),max_length=10000,null=True,help_text=_("Subject"))
 
     # AuditLog table config
-    history = HistoricalRecords(_("sita_extractor_itsm_history"), table_name="extractor_itsm_history")
+    # history = HistoricalRecords(_("sita_extractor_itsm_history"), table_name="extractor_itsm_history")
