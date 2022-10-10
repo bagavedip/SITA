@@ -1,5 +1,6 @@
 from datetime import datetime
-from sita.models import EXTRACTOR_SOAR, STG_SOAR, EXTRACTOR_ITSM, EXTRACTOR_SIEM, STG_SIEM, STG_ITSM
+from sita.models import EXTRACTOR_SOAR,STG_SOAR,EXTRACTOR_ITSM,EXTRACTOR_SIEM,STG_SIEM,STG_ITSM,Audit_SOAR_EXTRACTOR, \
+    Audit_SIEM_EXTRACTOR
 from sita.models.audit_siem_stg import Audit_SIEM_STG
 from sita.models.audit_soar_stg import Audit_SOAR_STG
 from sita.models.audit_itsm_stg import Audit_ITSM_STG
@@ -21,9 +22,13 @@ class ExtractorToStgService:
         #     time = queryset.end_date
         # else:
         #     time = datetime.now()
-        # queryset = EXTRACTOR_SOAR.objects.filter(created_at__lte=start_date, created_at__)
+        # audit = Audit_SOAR_EXTRACTOR.objects.filter(status="Success").last()
+        # start_date = audit.start_date
+        # last_date = audit.end_date
+        # queryset = EXTRACTOR_SOAR.objects.filter(created_at__lte=start_date, created_at__gte=last_date)
         try:
-            query = EXTRACTOR_SOAR.objects.filter().last()
+            query = EXTRACTOR_SOAR.objects.all()
+            a = []
             for row in query:
                 closing_time = int(row.ClosingTime)
                 time = row.Time
@@ -51,10 +56,11 @@ class ExtractorToStgService:
                     "Case_id": row.Case_id,
                     "AlertsCount": row.AlertsCount
                 }
+                a.append(row.SOAR_ID)
                 # this line will create soar data according to given soar dict
-                values = STG_SOAR.objects.create(**soar)
-                end_time = datetime.now()
-                status = "Success"
+            values = STG_SOAR.objects.update_or_create(defaults=soar, SOAR_ID=a)
+            end_time = datetime.now()
+            status = "Success"
             return status
         except Exception as e:
             end_time = datetime.now()
@@ -79,7 +85,10 @@ class ExtractorToStgService:
         end_time = datetime.now()
         status = "Failed"
         try:
-            queryset = EXTRACTOR_SIEM.objects.all().values()
+            audit = Audit_SIEM_EXTRACTOR.objects.filter(status="Success").last()
+            start_date = audit.start_date
+            last_date = audit.end_date
+            queryset = EXTRACTOR_SIEM.objects.filter(created_at__range=[start_date, last_date])
             final_siem = []
             for query in queryset:
                 siem = {

@@ -55,11 +55,11 @@ class SiemService:
             base_url = 'https://192.168.200.206'
             api_key = 'f52645f4-0dcf-400f-bb6c-56c9e20f87c6'
             qradar = SiemService(base_url=base_url, api_key=api_key)
-            queryset = Audit_SIEM_EXTRACTOR.objects.filter(status="Failed").last()
-            if queryset:
-                times = queryset.end_time
-            else:
-                times = datetime.now()
+            queryset = Audit_SIEM_EXTRACTOR.objects.all() # filter(status="Failed").last()
+            # if queryset:
+            #     times = queryset.end_time
+            # else:
+            times = datetime.now()
             proper_time_format = f"{times.date().day}/{str(times.date().month).zfill(2)}/{times.date().year}"
             start_time = datetime.strptime(proper_time_format, DATE_FORMAT)
             name = None
@@ -115,7 +115,7 @@ class SiemService:
                     "rule_details": offense.get('rule_details', None),
                     "siem_id": offense.get('id', None),
                 }
-            a = EXTRACTOR_SIEM.objects.create(**siem)
+            a = EXTRACTOR_SIEM.objects.update_or_createcreate(defaults=siem, siem_id=offense.get("id"))
             end_time = datetime.now()
             status = "Success"
             return a
