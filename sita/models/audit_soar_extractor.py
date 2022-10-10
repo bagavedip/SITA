@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Audit_SOAR(models.Model):
+class Audit_SOAR_EXTRACTOR(models.Model):
     """
         Model to hold data of Asset
     """

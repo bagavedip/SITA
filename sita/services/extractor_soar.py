@@ -1,9 +1,8 @@
 import json
 import requests
-from datetime import datetime,   timedelta
+from datetime import datetime
 from sita.models import EXTRACTOR_SOAR
-from sita.models.audit_itsm_extractor import Audit_ITSM
-from sita.models.audit_soar_extractor import Audit_SOAR
+from sita.models.audit_soar_extractor import Audit_SOAR_EXTRACTOR
 
 
 class SoarService:
@@ -14,7 +13,7 @@ class SoarService:
         status = "Failed"
 
         # query to find last success record in audit_table
-        queryset = Audit_SOAR.objects.filter(status="Success").last()
+        queryset = Audit_SOAR_EXTRACTOR.objects.filter(status="Success").last()
         if queryset:
             time = queryset.end_date
         else:
@@ -42,7 +41,6 @@ class SoarService:
             # fetch all records from url and store it in output
             output = json.loads(response.text)
             numbers = []
-            a = []
             for data in output['caseCards']:
                 # fetch id for single record url
                 keys = data.get('id')
@@ -63,12 +61,12 @@ class SoarService:
                         sources = source.get('sources')
                         port = source.get('port')
                         outcome = source.get('outcome')
-                        time = source.get('time')
+                        times = int(source.get('time'))
                     soar = {
                         "SOAR_ID": output.get('id', None),
                         "AssignedUser": output.get('assignedUserName', None),
                         "Title": output.get('title', None),
-                        "Time": time,
+                        "Time": datetime.fromtimestamp((times/1000)),
                         "Tags": output.get('tags', None),
                         "Products": products,
                         "Incident": output.get('isIncident', None),
@@ -92,7 +90,7 @@ class SoarService:
                 values = EXTRACTOR_SOAR.objects.create(**soar)
                 end_time = datetime.now()
                 status = "Success"
-            return a
+            return status
         except Exception as e:
             end_time = datetime.now()
             status = "Failed"
@@ -104,5 +102,5 @@ class SoarService:
                 "end_date": end_time,
                 "status": status
             }
-            audit = Audit_ITSM.objects.create(**audit_dict)
+            audit = Audit_SOAR_EXTRACTOR.objects.create(**audit_dict)
             return audit_dict

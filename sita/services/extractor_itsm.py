@@ -1,6 +1,6 @@
 import requests
 import datetime
-from sita.models.audit_itsm_extractor import Audit_ITSM
+from sita.models.audit_itsm_extractor import Audit_ITSM_EXTRACTOR
 from sita.models.extractor_itsm import EXTRACTOR_ITSM
 
 
@@ -195,5 +195,5 @@ class ITSMServices:
                 "end_date": end_time,
                 "status": status
             }
-            audit = Audit_ITSM.objects.create(**audit_dict)
+            audit = Audit_ITSM_EXTRACTOR.objects.create(**audit_dict)
             return audit_dict

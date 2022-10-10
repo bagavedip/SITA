@@ -93,6 +93,7 @@ ticket_timeline = ITSMViewSet.as_view({"post": "ticket_timeline"})
 itsm = Extractor.as_view({"get": "itsm"})
 soar = Extractor.as_view({"get": "soar"})
 siem = Extractor.as_view({"get": "siem"})
+soar_stg = Extractor.as_view({"get": "soar_stg"})
 
 urlpatterns = simple_router.urls
 urlpatterns = urlpatterns + [
@@ -172,5 +173,6 @@ urlpatterns = urlpatterns + [
     # extractor api
     path(r"api/v1/itsm/", itsm, name="itsm"),
     path(r"api/v1/soar/", soar, name="soar"),
-    path(r"api/v1/siem/", siem, name="siem")
+    path(r"api/v1/siem/", siem, name="siem"),
+    path(r"api/v1/soar_stg/", soar_stg, name="soar_stg")
 ]

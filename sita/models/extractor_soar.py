@@ -28,3 +28,4 @@ class EXTRACTOR_SOAR(models.Model):
     RootCause = models.CharField(_("RootCause"), max_length=2000, null=True, help_text=_("Root Cause"))
     Case_id = models.CharField(_("Case_id"), null=True, max_length=2000, help_text=_("Case Id"))
     AlertsCount = models.CharField(null=True, max_length=2000, help_text="alertscount")
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, help_text=_("created at"))

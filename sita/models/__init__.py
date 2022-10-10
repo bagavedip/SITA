@@ -16,4 +16,10 @@ from .extractor_itsm import EXTRACTOR_ITSM
 from .extractor_siem import EXTRACTOR_SIEM
 from .extractor_soar import EXTRACTOR_SOAR
 from .fact_oei import FACT_OEI
+from .audit_siem_extractor import Audit_SIEM_EXTRACTOR
+from .audit_itsm_extractor import Audit_ITSM_EXTRACTOR
+from .audit_soar_extractor import Audit_SOAR_EXTRACTOR
+from .audit_siem_stg import Audit_SIEM_STG
+from .audit_itsm_stg import Audit_ITSM_STG
+from .audit_soar_stg import Audit_SOAR_STG
 

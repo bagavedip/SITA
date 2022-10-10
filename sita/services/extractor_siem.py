@@ -2,14 +2,9 @@ from datetime import datetime
 import os
 import requests
 import time
-from django.utils.timezone import make_aware
-
-
 from urllib.parse import urljoin
-
 from sita.models import EXTRACTOR_SIEM
-from sita.models.audit_itsm_extractor import Audit_ITSM
-from sita.models.audit_siem_extractor import Audit_SIEM
+from sita.models.audit_siem_extractor import Audit_SIEM_EXTRACTOR
 
 # Remove warnings messages
 requests.packages.urllib3.disable_warnings()
@@ -60,7 +55,7 @@ class SiemService:
             base_url = 'https://192.168.200.206'
             api_key = 'f52645f4-0dcf-400f-bb6c-56c9e20f87c6'
             qradar = SiemService(base_url=base_url, api_key=api_key)
-            queryset = Audit_SIEM.objects.filter(status="Failed").last()
+            queryset = Audit_SIEM_EXTRACTOR.objects.filter(status="Failed").last()
             if queryset:
                 times = queryset.end_time
             else:
@@ -134,5 +129,5 @@ class SiemService:
                 "end_date": end_time,
                 "status": status
             }
-            audit = Audit_ITSM.objects.create(**audit_dict)
+            audit = Audit_SIEM_EXTRACTOR.objects.create(**audit_dict)
             return audit_dict

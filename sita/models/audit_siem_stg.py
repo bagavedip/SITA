@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Audit_SIEM_EXTRACTOR(models.Model):
+class Audit_SIEM_STG(models.Model):
     """
         Model to hold data of Asset
     """

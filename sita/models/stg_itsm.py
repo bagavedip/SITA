@@ -173,6 +173,4 @@ class STG_ITSM(models.Model):
     group = models.CharField(_("group"), null=True, max_length=200, help_text=_("group"))
     resolved_time = models.CharField(_("resolved_time"), max_length=200, null=True, help_text=_("resolved_time"))
     response_time = models.CharField(_("reesponse_time"), max_length=200, null=True, help_text=_("response_time"))
-
-    # AuditLog table config
-    # history = HistoricalRecords(_("stg_itsm_history"), table_name="stg_itsm_history")
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, help_text=_("created at"))
