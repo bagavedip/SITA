@@ -13,7 +13,7 @@ class SoarService:
         status = "Failed"
 
         # query to find last success record in audit_table
-        queryset = Audit_SOAR_EXTRACTOR.objects.all() # filter(status="Success").last()
+        queryset = Audit_SOAR_EXTRACTOR.objects.filter(status="Success").last()
         if queryset:
             time = queryset.end_date
         else:
@@ -45,7 +45,6 @@ class SoarService:
                 # fetch id for single record url
                 keys = data.get('id')
                 numbers.append(keys)
-                a = []
                 for n in numbers:
                     headers = {'AppKey': 'a936681c-db8c-49b5-be95-e56e943f6426'}
                     url = "https://192.168.200.98/api/external/v1/cases/GetCaseFullDetails/" + str(n)
@@ -87,9 +86,8 @@ class SoarService:
                         "Case_id": output.get('id', None),
                         "AlertsCount": output.get("", None),
                     }
-                    a.append(output.get("id"))
                 # this line will create soar data according to given soar dict
-            values = EXTRACTOR_SOAR.objects.update_or_create(defaults=soar, SOAR_ID=a)
+                values = EXTRACTOR_SOAR.objects.update_or_create(defaults=soar, SOAR_ID=output.get("id"))
             end_time = datetime.now()
             status = "Success"
             return status

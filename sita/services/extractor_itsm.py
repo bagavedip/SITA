@@ -181,7 +181,7 @@ class ITSMServices:
                         "subject": data.get('subject', None)
                     }
                     # values is defined to create objects in itsm extractor table
-                    values = EXTRACTOR_ITSM.objects.create(**itsm)
+                    values = EXTRACTOR_ITSM.objects.update_or_create(defaults=itsm, itsm_id=data.get("id"))
             end_time = datetime.datetime.now()
             status = "Success"
             return a

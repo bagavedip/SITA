@@ -1,6 +1,6 @@
 from datetime import datetime
 from sita.models import EXTRACTOR_SOAR,STG_SOAR,EXTRACTOR_ITSM,EXTRACTOR_SIEM,STG_SIEM,STG_ITSM,Audit_SOAR_EXTRACTOR, \
-    Audit_SIEM_EXTRACTOR
+    Audit_SIEM_EXTRACTOR,Audit_ITSM_EXTRACTOR
 from sita.models.audit_siem_stg import Audit_SIEM_STG
 from sita.models.audit_soar_stg import Audit_SOAR_STG
 from sita.models.audit_itsm_stg import Audit_ITSM_STG
@@ -15,23 +15,14 @@ class ExtractorToStgService:
         now = datetime.now()
         end_time = datetime.now()
         status = "Failed"
-
-        # query to find last success record in audit_table
-        # queryset = Audit_SOAR.objects.filter(status="Success").last()
-        # if queryset:
-        #     time = queryset.end_date
-        # else:
-        #     time = datetime.now()
-        # audit = Audit_SOAR_EXTRACTOR.objects.filter(status="Success").last()
-        # start_date = audit.start_date
-        # last_date = audit.end_date
-        # queryset = EXTRACTOR_SOAR.objects.filter(created_at__lte=start_date, created_at__gte=last_date)
         try:
-            query = EXTRACTOR_SOAR.objects.all()
+            audit = Audit_SOAR_EXTRACTOR.objects.filter(status="Success").last()
+            start_date = audit.start_date
+            last_date = audit.end_date
+            queryset = EXTRACTOR_SOAR.objects.filter(created_at__gte=start_date, created_at__lte=last_date)
             a = []
-            for row in query:
+            for row in queryset:
                 closing_time = int(row.ClosingTime)
-                time = row.Time
                 soar = {
                     "SOAR_ID": int(row.SOAR_ID),
                     "AssignedUser": row.AssignedUser,
@@ -56,12 +47,13 @@ class ExtractorToStgService:
                     "Case_id": row.Case_id,
                     "AlertsCount": row.AlertsCount
                 }
-                a.append(row.SOAR_ID)
+
+                soar_id = int(row.SOAR_ID)
                 # this line will create soar data according to given soar dict
-            values = STG_SOAR.objects.update_or_create(defaults=soar, SOAR_ID=a)
+                a = STG_SOAR.objects.update_or_create(defaults=soar, SOAR_ID=soar_id)
             end_time = datetime.now()
             status = "Success"
-            return status
+            return a
         except Exception as e:
             end_time = datetime.now()
             status = "Failed"
@@ -88,7 +80,7 @@ class ExtractorToStgService:
             audit = Audit_SIEM_EXTRACTOR.objects.filter(status="Success").last()
             start_date = audit.start_date
             last_date = audit.end_date
-            queryset = EXTRACTOR_SIEM.objects.filter(created_at__range=[start_date, last_date])
+            queryset = EXTRACTOR_SIEM.objects.filter(created_at__gte=start_date, created_at__lte=last_date).values()
             final_siem = []
             for query in queryset:
                 siem = {
@@ -159,14 +151,17 @@ class ExtractorToStgService:
         end_time = datetime.now()
         status = "Failed"
         try:
-            queryset = EXTRACTOR_ITSM.objects.all().values()
+            audit = Audit_ITSM_EXTRACTOR.objects.filter(status="Success").last()
+            start_date = audit.start_date
+            last_date = audit.end_date
+            queryset = EXTRACTOR_ITSM.objects.filter(created_at__gte=start_date, created_at__lte=last_date).values()
             for query in queryset:
                 if query.get('assets'):
                     final_itsm = []
                     for asset in list(eval(query.get('assets'))):
                         itsm = {
                             "resolution_submitted_on_display_value": query.get("resolution_submitted_on_display_value", None),
-                            "resolution_submitted_on_value":query.get("resolution_submitted_on_value", None) ,
+                            "resolution_submitted_on_value": query.get("resolution_submitted_on_value", None),
                             "resolution_submitted_by_email_id": query.get("resolution_submitted_by_email_id", None),
                             "resolution_submitted_by_name": query.get("resolution_submitted_by_name", None),
                             "resolution_submitted_by_mobile": query.get("resolution_submitted_by_mobile", None),
@@ -292,7 +287,7 @@ class ExtractorToStgService:
                             "level_id": query.get("level_id", None),
                             "udf_fields_udf_sline_5401": query.get("udf_fields_udf_sline_5401", None),
                             "udf_fields_udf_long_3302": query.get("udf_fields_udf_long_3302", None),
-                            "subject":query.get("subject", None)
+                            "subject": query.get("subject", None)
                         }
                         final_itsm.append(itsm)
                         a = STG_ITSM.objects.create(**itsm)
