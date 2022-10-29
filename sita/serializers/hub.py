@@ -1,11 +1,11 @@
+from sita.constants.filter_map import Map
 from sita.constants.dataset import Dataset
-from sita.constants.oei_color import ColorMap
-from sita.constants.oei_filters import Map
+from sita.constants.color import ColorMap
 
 
-class OeiSerializer:
+class InsightsSerializer:
     """
-     Serializer for OEI(ITSM) models
+     Serializer for Insights(Hub) models
     """
     def __init__(self, request) -> None:
         self.request_filters = []
@@ -18,17 +18,27 @@ class OeiSerializer:
         filter_data = request.data
         self.start_date = filter_data.get('fromDate')
         self.end_date = filter_data.get('toDate')
-        header_option = filter_data.get('filterOptions').get('headerOption')
         filterOptions = filter_data.get('filterOptions').get('headerFilters')
+        add_criticality = False
         for filter in filterOptions:
-            self.request_filters.append(filter)
-        if header_option != "Tickets":
-            self.request_filters.append(filter_data.get('filterOptions').get('headerOption'))
+            if filter == 'Criticality':
+                add_criticality = True
+            else:
+                self.request_filters.append(filter)
+        self.request_filters.append(filter_data.get('filterOptions').get('headerOption'))
+        temp_request_filters = []
+        for option in Map.get_master():
+            if option in self.request_filters:
+                temp_request_filters.append(option)
+        self.request_filters = temp_request_filters
+        header_option = filter_data.get('filterOptions').get('headerOption')
         filters = Map.get_filter(header_option).split(",")
         if len(filters) > 1:
             self.legend_filter = filters[1]
         else:
             self.legend_filter = filters[0]
+        if add_criticality:
+            self.request_filters.append('Criticality')
         self.depth = len(self.request_filters)
         index = 1
         for filter in self.request_filters:
@@ -84,7 +94,7 @@ class OeiSerializer:
                 self.insert_children(index + 1, val, data, events)
             break
 
-    def update_hierarchy_data(self, data, events):
+    def update_hierarcy_data(self, data, events):
         for index in range(len(self.request_filters)):
             key = self.request_filters[index]
             if key in self.hier_data.keys():
@@ -138,8 +148,6 @@ class OeiSerializer:
         self.datasets[0]['labels'] = labels
         self.datasets[0]['backgroundColor'] = backgroundColor
         self.datasets[0]['dataLabelColor'] = dataLabelColor
-        self.datasets[0]['spacing'] = 30
-        self.datasets[0]['weight'] = 8
 
     def build_dataset_level2(self):
         data = []
@@ -165,7 +173,7 @@ class OeiSerializer:
                     labels.append(child_item['name'])
                     id = child_item['name']
                     if '-' in child_item['name']:
-                        id = child_item['name'].split("-")[1]
+                        id = child_item['name'].split("-")[0]
                     backgroundColor.append(ColorMap.get_color(self.datasets[1]['label'], id))
                     dataLabelColor = ColorMap.get_color(self.datasets[1]['label'],id)
         self.datasets[1]['data'] = data
@@ -263,22 +271,18 @@ class OeiSerializer:
         self.datasets[3]['hierarchy'] = hierarchy
         self.datasets[3]['labels'] = labels
         self.datasets[3]['backgroundColor'] = backgroundColor
-        self.datasets[2]['dataLabelColor'] = dataLabelColor
+        self.datasets[3]['dataLabelColor'] = dataLabelColor
         self.datasets[3]['spacing'] = 15
         self.datasets[3]['weight'] = 2
 
     def build_dataset(self):
-        if len(self.datasets) ==1:
-            self.build_dataset_level1()
-        elif len(self.datasets) == 2:
-            self.build_dataset_level1()
+        self.build_dataset_level1()
+        if len(self.datasets) == 2:
             self.build_dataset_level2()
         elif len(self.datasets) == 3:
-            self.build_dataset_level1()
             self.build_dataset_level2()
             self.build_dataset_level3()
         else:
-            self.build_dataset_level1()
             self.build_dataset_level2()
             self.build_dataset_level3()
             self.build_dataset_level4()
@@ -287,7 +291,7 @@ class OeiSerializer:
             temp_datasets.append(dataaet)
         self.datasets = temp_datasets
 
-    def set_request_queryset(self, obj):
+    def set_requst_queryset(self, obj):
         self.queryset = obj
         for row in obj:
             filter_vals = []
@@ -298,5 +302,5 @@ class OeiSerializer:
                 col_data = col_data[1:]
                 temp_label = col_data
                 filter_vals.append(temp_label)
-            self.update_hierarchy_data(filter_vals, row.get('events'))
+            self.update_hierarcy_data(filter_vals, row.get('events'))
         self.build_dataset()

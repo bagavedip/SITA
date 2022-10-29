@@ -1,4 +1,4 @@
-
+header_hierarchy = ['Entity', 'Location', 'Function', 'Assets', 'Process', 'UseCase']
 filter_map = {
     "Assets": "asset_id,asset_name",
     "Assets_Tyoe": "asset_type",
@@ -20,3 +20,7 @@ class Map:
     @staticmethod
     def get_filter(name):
         return filter_map.get(name)
+
+    @staticmethod
+    def get_master():
+        return header_hierarchy

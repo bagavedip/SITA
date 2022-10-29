@@ -7,6 +7,7 @@ from django.db.models import Count, Q
 
 from sita.models.add_oei_comment import AddOeiComment
 from sita.models.stg_itsm import STG_ITSM
+from sita.models.insights_update import HubUpdate
 from sita.serializers.oei_timeline import OeiTimeline
 from sita.serializers.oei_serializers import OeiSerializer
 from sita.serializers.oei_ticket_details import TicketDetailsSerializer
@@ -40,7 +41,7 @@ class ITSMService:
         """
         query_data = (
             STG_ITSM.objects.filter(CreatedTime__gte=response_obj.start_date,
-                                Ending_time__lte=response_obj.end_date).values(*response_obj.model_group_map)
+                                    Ending_time__lte=response_obj.end_date).values(*response_obj.model_group_map)
             .order_by().annotate(events=Count('Itsm_id'))
         )
         response_obj.set_request_queryset(query_data)
@@ -61,8 +62,16 @@ class ITSMService:
          Functions for details page of OEI tickets
         """
         data = ITSMService.get_queryset().filter(SIEM_id=ticket)
+        updates = HubUpdate.objects.all().filter(soar_id=ticket).order_by('-update_date')[:6]
         assets = str(data.count())
+        asset_names =[]
+        request_status={}
+        card=[]
+        incident_details={}
+        resolution_status={}
+        other_details={}
         for query in data:
+            asset_names.append(query.Asset_Name)
             request_status = {"text": query.Subject + " " + query.SIEM_id, "color": "#ffc107"}
             time_to_close = (query.assigned_time - query.CreatedTime)
             time = int(abs(time_to_close).total_seconds() / 3600)
@@ -88,14 +97,14 @@ class ITSMService:
                 color = "#00FF00"
                 card_icon = "GreenCaution"
             else:
-                priority = "Yellow"
-                color = "#FFFF00"
+                priority = "Orange"
+                color = "#FFA500"
                 card_icon = "OrangeCaution"
             tread_level = {"cardTitle": priority, "textColor": color, "cardSubTitle": "Threat Level",
                            "cardIcon": card_icon}
             card = [tread_level, time_to_close, expected_closure]
             incident_details = {"title": "TICKET DETAILS",
-                                "description": query.Description}
+                                "description": "ITSM Case:" + query.Itsm_id + "\n SOAR ID: " + query.SOAR_ID}
             resolution_status = {
                 "title": "RESOLUTION STATUS",
                 "resolutionDetails": {
@@ -110,51 +119,54 @@ class ITSMService:
                     "isEditable": "true"
                 }
             }
-            details = [{
-                "subTitle": "Assets Affected",
-                "value": assets,
+        assets_name = assets +":"+ str(asset_names)
+        details = [{
+            "subTitle": "Assets Affected",
+            "value": assets_name,
+            "valueColor": "#333333"
+        },
+            {
+                "subTitle": "Assets Type",
+                "value": query.Asset_Name,
                 "valueColor": "#333333"
             },
-                {
-                    "subTitle": "Assets Type",
-                    "value": query.Asset_Name,
-                    "valueColor": "#333333"
-                },
-                {
-                    "subTitle": "Geographies",
-                    "value": query.location_name,
-                    "valueColor": "#03AAC9"
-                },
-                {
-                    "subTitle": "Org's",
-                    "value":  query.Region,
-                    "valueColor": "03AAC9"
-                },
-                {
-                    "subTitle": "Breach's cost",
-                    "value": "480",
-                    "valueColor": "#333333"
-                }
-            ]
-            other_details = {"title": "OTHER DETAILS",
-                             "details": details}
-            updates = {
-                "title": "UPDATES",
-                "data": [
-                    {
-                        "updateDateTime": "YYYY-MM-DDTHH:mm:ss",
-                        "description": query.reply
+            {
+                "subTitle": "Geographies",
+                "value": query.location_name,
+                "valueColor": "#03AAC9"
+            },
+            {
+                "subTitle": "Org's",
+                "value":  query.Region,
+                "valueColor": "03AAC9"
+            },
+            {
+                "subTitle": "Breach's cost",
+                "value": "480",
+                "valueColor": "#333333"
+            }
+        ]
+        other_details = {"title": "OTHER DETAILS",
+                         "details": details}
+        updated_data=[]
+        for data in updates:
+            last_updates = {
+                "updateDateTime":data.update_date,
+                "description":data.updates
+            }
+            updated_data.append(last_updates)
+        updates = {
+            "title": "UPDATES",
+            "data": updated_data
                     }
-                ]
-            }
-            data_dict = {
-                "incidentStatus": request_status,
-                "cards": card,
-                "incidentDetails": incident_details,
-                "resolutionStatus": resolution_status,
-                "otherDetails": other_details,
-                "updates": updates
-            }
+        data_dict = {
+            "incidentStatus": request_status,
+            "cards": card,
+            "incidentDetails": incident_details,
+            "resolutionStatus": resolution_status,
+            "otherDetails": other_details,
+            "updates": updates
+        }
         return data_dict
 
     @staticmethod
@@ -205,13 +217,15 @@ class ITSMService:
             for x in range(0, total_days+1):
                 within_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=start_date + timedelta(days=1),
-                                        is_overdue= "true").count())
+                                            CreatedTime__lte=start_date + timedelta(days=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=start_date + timedelta(days=1),
-                                        is_overdue= "false").count())
+                                            CreatedTime__lte=start_date + timedelta(days=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "false").count())
                 outside_tickets.append(outside_query)
 
                 time.append(calendar.month_name[start_date.month]+str(start_date.day))
@@ -224,13 +238,15 @@ class ITSMService:
             for x in range(0, delta.months):
                 within_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=(start_date+relativedelta.relativedelta(months=1)),
-                                        is_overdue= "true").count())
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=(start_date+relativedelta.relativedelta(months=1)),
-                                        is_overdue= "false").count())
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "false").count())
                 outside_tickets.append(outside_query)
                 time.append(calendar.month_name[start_date.month])
                 start_date = start_date + relativedelta.relativedelta(months=1)
@@ -244,13 +260,15 @@ class ITSMService:
             for x in range(1, delta.years):
                 within_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=(start_date + relativedelta.relativedelta(years=1)),
-                                        is_overdue= "true").count())
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=(start_date + relativedelta.relativedelta(years=1)),
-                                        is_overdue= "false").count())
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
+                                            Ending_time__lte=end_time,
+                                            is_overdue= "false").count())
                 outside_tickets.append(outside_query)
                 time.append(start_date.year)
                 start_date = start_date + relativedelta.relativedelta(years=1)
@@ -324,7 +342,8 @@ class ITSMService:
             for x in range(0, total_days+1):
                 query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=start_date + timedelta(days=1)).count()
+                                            CreatedTime__lte=start_date + timedelta(days=1),
+                                            Ending_time__lte=end_time).count()
                 )
                 tickets.append(query)
                 time.append(calendar.month_name[start_date.month]+str(start_date.day))
@@ -337,7 +356,8 @@ class ITSMService:
             for x in range(0, delta.months):
                 query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=(start_date+relativedelta.relativedelta(months=1))).count()
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
+                                            Ending_time__lte=end_time).count()
                 )
                 tickets.append(query)
                 time.append(calendar.month_name[start_date.month])
@@ -352,7 +372,8 @@ class ITSMService:
             for x in range(1, delta.years):
                 query = (
                     STG_ITSM.objects.filter(CreatedTime__gte=start_date,
-                                        CreatedTime__lte=start_date + relativedelta.relativedelta(years=1)).count())
+                                            CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
+                                            Ending_time__lte=end_time).count())
                 time.append(start_date.year)
                 tickets.append(query)
                 start_date = start_date + relativedelta.relativedelta(years=1)

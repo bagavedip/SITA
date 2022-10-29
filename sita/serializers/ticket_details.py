@@ -3,7 +3,7 @@ from sita.constants import constants
 
 class TicketDetailsSerializer:
     """
-     Serializer for Ticket Details for Insights(sita)
+     Serializer for Ticket Details for Insights(Hub)
     """
 
     def __init__(self, request) -> None:

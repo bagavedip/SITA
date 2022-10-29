@@ -54,4 +54,3 @@ class STG_SIEM(models.Model):
     local_destination_address_ids = models.CharField(_("local_destination_address_ids"), max_length=200, null=True,
                                                      help_text=_("Local destination address ids"))
     target = models.CharField(max_length=200, null=True, help_text="target")
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, help_text=_("created at"))
