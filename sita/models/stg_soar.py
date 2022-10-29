@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from sita.models.stg_siem import STG_SIEM
+from datetime import datetime
 
 
 class STG_SOAR(models.Model):
@@ -21,10 +23,11 @@ class STG_SOAR(models.Model):
     Environment = models.CharField(_("Environment"), max_length=200, null=True, help_text=_("Environment"))
     Priority = models.CharField(_("Priority"), max_length=200, null=True, help_text=_("Priority"))
     Stage = models.CharField(_("Stage"), max_length=200, null=True, help_text=_("Stage"))
-    TicketIDs = models.CharField(_("TicketIDs"), max_length=200, help_text=_("Ticket Ids"))
+    TicketIDs = models.CharField(_("TicketIDs"), max_length=200, null=True, help_text=_("TicketIDs"))
     ClosingTime = models.DateTimeField(_("ClosingTime"), max_length=200, null=True, help_text=_("Closing Time"))
     Sources = models.CharField(_("Sources"), max_length=200, null=True, help_text=_("Sources"))
     Reason = models.CharField(_("Reason"), max_length=200, null=True, help_text=_("Reason"))
     RootCause = models.CharField(_("RootCause"), max_length=200, null=True, help_text=_("Root Cause"))
     Case_id = models.CharField(_("Case_id"), null=True, max_length=200, help_text=_("Case Id"))
     AlertsCount = models.CharField(null = True, max_length=200, help_text="alertscount")
+    created_at = models.DateTimeField(_("created at"), default=datetime.now, help_text=_("created at"))

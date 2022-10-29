@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from datetime import datetime
 
 
 class EXTRACTOR_SIEM(models.Model):
@@ -53,7 +54,7 @@ class EXTRACTOR_SIEM(models.Model):
                                              help_text=_("last_updated_time"))
     credibility = models.CharField(_("credibility"),max_length=10000,null=True,
                                    help_text=_("credibility"))
-    siem_id = models.CharField(_("id"),max_length=10000,null=True,
+    siem_id = models.CharField(_("siem_id"),max_length=10000,null=True,
                                help_text=_("id"))
     categories = models.CharField(_("categories"),max_length=10000,null=True,
                                   help_text=_("categories"))
@@ -61,7 +62,7 @@ class EXTRACTOR_SIEM(models.Model):
                                 help_text=_("severity"))
     policy_category_count = models.CharField(_("policy_category_count"),max_length=10000,null=True,
                                              help_text=_("policy_category_count"))
-    log_sources = models.JSONField(_("log_sources"),max_length=10000,null=True,
+    log_sources = models.CharField(_("log_sources"),max_length=10000,null=True,
                                    help_text=_("log_sources"))
     closing_reason_id = models.CharField(_("closing_reason_id"),max_length=10000,null=True,
                                          help_text=_("closing_reason_id"))
@@ -85,3 +86,4 @@ class EXTRACTOR_SIEM(models.Model):
                               help_text=_("status"))
     rule_details = models.CharField(_("rule_details"),max_length=10000,null=True,
                                     help_text=_("rule_details"))
+    created_at = models.DateTimeField(_("created at"), default=datetime.now, help_text=_("created at"))

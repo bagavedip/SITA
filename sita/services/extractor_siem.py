@@ -2,12 +2,9 @@ from datetime import datetime
 import os
 import requests
 import time
-from django.utils.timezone import make_aware
-
-
 from urllib.parse import urljoin
-
 from sita.models import EXTRACTOR_SIEM
+from sita.models.audit_siem_extractor import Audit_SIEM
 
 # Remove warnings messages
 requests.packages.urllib3.disable_warnings()
@@ -18,6 +15,8 @@ GET_OFFENSES = '/api/siem/offenses'
 GET_RULE = '/api/analytics/rules/{rule_id}'
 DATE_FORMAT = '%d/%m/%Y'
 FILE_PATH = '{root}\offenses.json'
+first_sync_time = '2022-10-19 16:28:42.320448+05:30'
+format = "%Y-%m-%d %H:%M:%S.%f%z"
 
 
 class SiemService:
@@ -51,25 +50,34 @@ class SiemService:
 
     @staticmethod
     def qradar():
+        now = datetime.now()
+        end_time = datetime.now()
+        status = "Failed"
         try:
             base_url = 'https://192.168.200.206'
             api_key = 'f52645f4-0dcf-400f-bb6c-56c9e20f87c6'
             qradar = SiemService(base_url=base_url, api_key=api_key)
-            times = datetime.now()
-            proper_time_format = f"{times.date().day}/{str(times.date().month).zfill(2)}/{times.date().year}"
+            queryset = Audit_SIEM.objects.filter(status="Success").last()
+            if queryset:
+                sync_times = queryset.end_date
+            else:
+                sync_times = datetime.strptime(first_sync_time, format)
+                print('now time is', sync_times)
+            proper_time_format = f"{sync_times.date().day}/{str(sync_times.date().month).zfill(2)}/{sync_times.date().year}"
             start_time = datetime.strptime(proper_time_format, DATE_FORMAT)
-            name = None
-            domain_id = qradar.get_domain_info(name) if name is not None else None
-            offenses = qradar.get_offenses(start_time=start_time,
-                                           filter=None if domain_id is None else ' and domain_id = {}'.format(domain_id))
+            # name = None
+            # domain_id = qradar.get_domain_info(name) if name is not None else None
+            offenses = qradar.get_offenses(start_time=start_time)
+            # filter=None if domain_id is None else ' and domain_id = {}'.format(domain_id))
             final_offenses = []
-            final_siem = []
+            number = 0
             for offense in offenses:
                 rules = []
                 for rule in offense.get('rules'):
                     rules.append(qradar.get_rule_by_id(rule.get('id')))
                 offense['rule_details'] = rules
                 final_offenses.append(offense)
+                print('siem id is', offense.get('id'))
                 siem = {
                     "last_persisted_time": (offense.get("last_persisted_time", None)),
                     "username_count": offense.get("username_count", None),
@@ -88,20 +96,19 @@ class SiemService:
                     "destination_networks": offense.get('[destination_networks]', None),
                     "source_network": offense.get('source_network', None),
                     "category_count": offense.get('category_count', None),
-                    "close_time": str(offense.get('close_time', None)),
+                    "close_time": offense.get('close_time', None),
                     "remote_destination_count": offense.get('remote_destination_count', None),
-                    "start_time": str(offense.get('start_time', None)),
+                    "start_time": offense.get('start_time', None),
                     "magnitude": offense.get('magnitude', None),
-                    "last_updated_time": str(offense.get('last_updated_time', None)),
+                    "last_updated_time": offense.get('last_updated_time', None),
                     "credibility": offense.get('credibility', None),
-                    "id": offense.get('id', None),
                     "categories": offense.get('', None),
                     "severity": offense.get('severity', None),
                     "policy_category_count": offense.get('policy_category_count', None),
-                    "log_sources": offense.get('', None),
+                    "log_sources": offense.get('log_sources', None),
                     "closing_reason_id": offense.get('closing_reason_id', None),
                     "device_count": offense.get('device_count', None),
-                    "first_persisted_time": str(offense.get('first_persisted_time', None)),
+                    "first_persisted_time": offense.get('first_persisted_time', None),
                     "offense_type": offense.get('offense_type', None),
                     "relevance": offense.get('relevance', None),
                     "domain_id": offense.get('domain_id', None),
@@ -112,8 +119,23 @@ class SiemService:
                     "rule_details": offense.get('rule_details', None),
                     "siem_id": offense.get('id', None),
                 }
-                final_siem.append(siem)
-            a = EXTRACTOR_SIEM.objects.bulk_create(final_siem)
+                number+=1
+                a = EXTRACTOR_SIEM.objects.update_or_create(defaults=siem, siem_id=offense.get("id"))
+                end_time = datetime.now()
+                status = "Success"
             return a
         except Exception as e:
+            print('exception is', e)
+            end_time = datetime.now()
+            status = "Failed"
             return e
+        finally:
+            audit_dict = {
+                "start_date": now,
+                "end_date": end_time,
+                "status": status,
+                "no_dump_data":number,
+                "total_data":len(offenses)
+            }
+            audit = Audit_SIEM.objects.create(**audit_dict)
+            return audit_dict

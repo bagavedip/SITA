@@ -11,6 +11,8 @@ from .views.functions import FunctionViewSet
 from .views.entity import EntityViewSet
 from .views.geolocation import GeoLocationViewSet
 from .views.category import CategoryViewSet
+from .views.staging import Staging
+from .views.fact import Fact
 
 simple_router = routers.SimpleRouter()
 
@@ -94,6 +96,14 @@ itsm = Extractor.as_view({"get": "itsm"})
 soar = Extractor.as_view({"get": "soar"})
 siem = Extractor.as_view({"get": "siem"})
 
+#Staging api
+stg_siem = Staging.as_view({"get":"stg_siem"})
+stg_itsm = Staging.as_view({"get":"stg_itsm"})
+stg_soar = Staging.as_view({"get":"stg_soar"})
+
+#Fact api
+fact = Fact.as_view({"get":"fact"})
+
 urlpatterns = simple_router.urls
 urlpatterns = urlpatterns + [
     path(r"api/v1/update_asset/<int:asset>", update_asset, name="update_asset"),
@@ -172,5 +182,13 @@ urlpatterns = urlpatterns + [
     # extractor api
     path(r"api/v1/itsm/", itsm, name="itsm"),
     path(r"api/v1/soar/", soar, name="soar"),
-    path(r"api/v1/siem/", siem, name="siem")
+    path(r"api/v1/siem/", siem, name="siem"),
+
+    # staging api
+    path(r"api/v1/stg_siem/", stg_siem, name="stg_siem"),
+    path(r"api/v1/stg_itsm/", stg_itsm, name="stg_itsm"),
+    path(r"api/v1/stg_soar/", stg_soar, name="stg_soar"),
+
+    #Fact api
+    path(r"api/v1/fact/",fact, name="fact")
 ]

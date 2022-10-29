@@ -1,12 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
+from datetime import datetime
 
 
 class EXTRACTOR_ITSM(models.Model):
     """
     Model to hold data for ITSM data
     """
+    itsm_id = models.CharField(_("id"),null=False,max_length=10000,
+                               help_text=_("Id"),primary_key=True)
     resolution_submitted_on_display_value = models.CharField(_("resolution_submitted_on_display_value"),max_length=10000,
                                                              null=True,
                                                              help_text=_("Resolution on display value"))
@@ -28,7 +31,7 @@ class EXTRACTOR_ITSM(models.Model):
     resolution_resolution_attachments = models.CharField(_("resolution_resolution_attachments"),null=True,
                                                          max_length=10000,
                                                          help_text=_("Resolution on Attachment"))
-    resolution_content = models.CharField(_("resolution_content"),null=True,max_length=10000,
+    resolution_content = models.CharField(_("resolution_content"),null=True,max_length=100000,
                                           help_text=_("Resolution Content"))
     linked_to_request = models.CharField(_("linked_to_request"),null=True,max_length=10000,
                                          help_text=_("Linked Request"))
@@ -42,8 +45,6 @@ class EXTRACTOR_ITSM(models.Model):
                               help_text=_("Assets"))
     is_trashed = models.CharField(_("is_trashed"),null=True,max_length=10000,
                                   help_text=_("Is trashed"))
-    itsm_id = models.CharField(_("id"),null=False,max_length=10000,
-                               help_text=_("Id"),primary_key=True)
     assigned_time_display_value = models.CharField(_("assigned_time_display_value"),max_length=10000,null=True,
                                                    help_text=_("Assigned time display value"))
     assigned_time_value = models.CharField(_("assigned_time_value"),null=True,max_length=10000,
@@ -153,7 +154,7 @@ class EXTRACTOR_ITSM(models.Model):
                                                   help_text=_("Time elapsed display value"))
     time_elapsed_value = models.CharField(_("time_elapsed_value"),max_length=10000,null=True,
                                           help_text=_("Time elapsed value"))
-    description = models.CharField(_("description"),max_length=10000,null=True,
+    description = models.CharField(_("description"),max_length=100000,null=True,
                                    help_text=_("Description"))
     has_dependency = models.CharField(_("has_dependency"),null=True,max_length=10000,
                                       help_text=_("Has Dependency"))
@@ -256,6 +257,4 @@ class EXTRACTOR_ITSM(models.Model):
     udf_fields_udf_long_3302 = models.CharField(_("udf_fields_udf_long_3302"),max_length=10000,null=True,
                                                 help_text=_("UDF Fields udf sline 3302"))
     subject = models.CharField(_("subject"),max_length=10000,null=True,help_text=_("Subject"))
-
-    # AuditLog table config
-    history = HistoricalRecords(_("sita_extractor_itsm_history"), table_name="extractor_itsm_history")
+    created_at = models.DateTimeField(_("created at"), default=datetime.now, help_text=_("created at"))

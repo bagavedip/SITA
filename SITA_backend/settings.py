@@ -197,3 +197,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Auto-created primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+import os
+if os.name == 'nt':
+    import platform
+    OSGEO4W = r"C:\OSGeo4W"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
+    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
+    GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal305.dll'
