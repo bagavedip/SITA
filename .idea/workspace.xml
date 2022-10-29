@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="changes in staging code of data create_or_update">
-      <change afterPath="$PROJECT_DIR$/users/models/preference.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/models/role.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/serializers/preference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/serializers/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers/user.py" afterDir="false" />
-    </list>
+    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="users models changes according to dev server code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,17 +30,17 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/dipika/SITA/users/serializers",
+    "last_opened_file_path": "/home/dipika/homzhubservices",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/users/serializers" />
-      <recent name="$PROJECT_DIR$/users/models" />
-      <recent name="$PROJECT_DIR$/sita/serializers" />
       <recent name="$PROJECT_DIR$/sita/services" />
       <recent name="$PROJECT_DIR$/sita/views" />
+      <recent name="$PROJECT_DIR$/sita/models" />
+      <recent name="$PROJECT_DIR$/sita/serializers" />
+      <recent name="$PROJECT_DIR$/sita/constants" />
     </key>
   </component>
   <component name="RunManager">
@@ -155,7 +148,28 @@
       <option name="project" value="LOCAL" />
       <updated>1665498416012</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="users models changes according to dev server code">
+      <created>1667026575999</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667026575999</updated>
+    </task>
+    <task id="LOCAL-00011" summary="users models changes according to dev server code">
+      <created>1667031898737</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1667031898737</updated>
+    </task>
+    <task id="LOCAL-00012" summary="users models changes according to dev server code">
+      <created>1667043236218</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1667043236218</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +188,8 @@
     <MESSAGE value="project main folder name change" />
     <MESSAGE value="changes in extractor code for audit table" />
     <MESSAGE value="changes in staging code of data create_or_update" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes in staging code of data create_or_update" />
+    <MESSAGE value="users models changes according to dev server code" />
+    <option name="LAST_COMMIT_MESSAGE" value="users models changes according to dev server code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -228,6 +243,11 @@
           <url>file://$PROJECT_DIR$/sita/services/extractor_itsm.py</url>
           <line>184</line>
           <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sita/services/dashboard.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
