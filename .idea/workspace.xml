@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="changes in staging code of data create_or_update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/services/extractor_siem.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_siem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/views/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/extractor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/models/preference.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/models/role.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/serializers/preference.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/serializers/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,21 +33,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dipika/SITA&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/dipika/SITA/users/serializers",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/users/serializers" />
+      <recent name="$PROJECT_DIR$/users/models" />
       <recent name="$PROJECT_DIR$/sita/serializers" />
       <recent name="$PROJECT_DIR$/sita/services" />
       <recent name="$PROJECT_DIR$/sita/views" />
-      <recent name="$PROJECT_DIR$/sita" />
-      <recent name="$PROJECT_DIR$/users" />
     </key>
   </component>
   <component name="RunManager">

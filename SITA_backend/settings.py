@@ -32,7 +32,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['devsita.etek.com', 'localhost']
+ALLOWED_HOSTS = ['devsita.etek.com', 'localhost', 'devsita.netrum-tech.com']
 
 
 # Application definition
@@ -64,10 +64,9 @@ TENANT_APPS = (
     "rest_framework_swagger",
     "django_filters",
     "fcm_django",
-    "simple_history",
     # project specific applications
     "users",
-    "sita",
+    "sita"
 )
 
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
@@ -81,7 +80,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    "simple_history.middleware.HistoryRequestMiddleware",
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -153,7 +151,7 @@ REST_FRAMEWORK = {
 
 # JWT Tokens Configuraions
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=600),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=180),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=90),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -197,3 +195,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Auto-created primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Email sending setup
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "saimsonu194@gmail.com"
+EMAIL_HOST_PASSWORD = "ilgtxsxmmzndsxqc"
