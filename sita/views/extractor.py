@@ -39,5 +39,5 @@ class Extractor(viewsets.GenericViewSet):
             return Response(e)
 
     def soar_stg(self, request):
-        result = ExtractorToStgService.extractor_to_stg_siem()
+        result = ExtractorToStgService.extractor_to_stg_itsm()
         return HttpResponse("hello")

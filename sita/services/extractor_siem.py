@@ -59,7 +59,9 @@ class SiemService:
             if queryset:
                 times = queryset.end_date
             else:
-                times = datetime.now()
+                time = '2022-06-1 16:28:42.320448+05:30'
+                format = "%Y-%m-%d %H:%M:%S.%f%z"
+                times = datetime.strptime(time, format)
             proper_time_format = f"{times.date().day}/{str(times.date().month).zfill(2)}/{times.date().year}"
             start_time = datetime.strptime(proper_time_format, DATE_FORMAT)
             # name = None
