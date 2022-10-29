@@ -7,6 +7,7 @@ from .functions import Function
 from .geolocations import GeoLocation
 from .process import Process
 from .stg_soar import STG_SOAR
+from .stg_siem import STG_SIEM
 from .fact_insights import FACT_INSIGHTS
 from .add_comment import AddComment
 from .add_oei_comment import AddOeiComment
