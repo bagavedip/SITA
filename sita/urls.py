@@ -2,8 +2,11 @@ from django.urls import path
 from rest_framework import routers
 
 from .views.assign_task import AssignTaskViewset
+from .views.cy_feeds import CyFeeds
+from .views.dashboard import DashboardViewSet
 from .views.extractor import Extractor
 from .views.insights import InsightHub
+from .views.perspective import PerspectiveViewSet
 from .views.process import ProcessViewSet
 from .views.oei import ITSMViewSet
 from .views.assets import AssetViewSet
@@ -11,6 +14,7 @@ from .views.functions import FunctionViewSet
 from .views.entity import EntityViewSet
 from .views.geolocation import GeoLocationViewSet
 from .views.category import CategoryViewSet
+from .views.security_pulse import SecurityPulseViewSet
 
 simple_router = routers.SimpleRouter()
 
@@ -88,12 +92,28 @@ incident_comment = InsightHub.as_view({"post": "incident_comment"})
 assign_user = AssignTaskViewset.as_view({"post": "assign_user"})
 sla_timeline = ITSMViewSet.as_view({"post": "sla_timeline"})
 ticket_timeline = ITSMViewSet.as_view({"post": "ticket_timeline"})
+add_update = InsightHub.as_view({"post": "add_update"})
+daily_metrics = InsightHub.as_view({"post": "daily_metrics"})
 
-# Extractor api
-itsm = Extractor.as_view({"get": "itsm"})
-soar = Extractor.as_view({"get": "soar"})
-siem = Extractor.as_view({"get": "siem"})
-soar_stg = Extractor.as_view({"get": "soar_stg"})
+perspective_master_dropdown = PerspectiveViewSet.as_view({"post": "perspective_master_dropdown"})
+perspective_grid_data = PerspectiveViewSet.as_view({"post": "perspective_grid_data"})
+security_pulse_grid_data = SecurityPulseViewSet.as_view({"post": "security_pulse_grid_data"})
+add_perspective_record = PerspectiveViewSet.as_view({"post": "add_perspective_record"})
+edit_perspective_record_fetch = PerspectiveViewSet.as_view({"post": "edit_perspective_record_fetch"})
+edit_perspective_record_submit = PerspectiveViewSet.as_view({"post": "edit_perspective_record_submit"})
+perspective_details_data = PerspectiveViewSet.as_view({"post": "perspective_details_data"})
+security_pulse_details_data = SecurityPulseViewSet.as_view({"post": "security_pulse_details_data"})
+perspective_record_delete = PerspectiveViewSet.as_view({"post": "perspective_record_delete"})
+security_pulse_record_delete = SecurityPulseViewSet.as_view({"post": "security_pulse_record_delete"})
+edit_security_pulse_record_submit = SecurityPulseViewSet.as_view({"post": "edit_security_pulse_record_submit"})
+edit_security_pulse_record_fetch = SecurityPulseViewSet.as_view({"post": "edit_security_pulse_record_fetch"})
+add_security_pulse_record = SecurityPulseViewSet.as_view({"post": "add_security_pulse_record"})
+fetch_incident_tags = PerspectiveViewSet.as_view({"post": "fetch_incident_tags"})
+fetch_asset_tags = PerspectiveViewSet.as_view({"post": "fetch_asset_tags"})
+fetch_enity_tags = PerspectiveViewSet.as_view({"post": "fetch_enity_tags"})
+dashboard_grid_data = DashboardViewSet.as_view({"post": "dashboard_grid_data"})
+
+feed_data = CyFeeds.as_view({"post": "all_feeds"})
 
 urlpatterns = simple_router.urls
 urlpatterns = urlpatterns + [
@@ -169,10 +189,30 @@ urlpatterns = urlpatterns + [
     path(r"api/v1/hub_timeline/", hub_timeline, name="hub_timeline"),
     path(r"api/v1/sla_timeline/", sla_timeline, name="sla_timeline"),
     path(r"api/v1/ticket_timeline/", ticket_timeline, name="ticket_timeline"),
+    path(r"api/v1/add_update/", add_update, name="add_update"),
+    path(r"api/v1/historical_news_feeds/", feed_data, name="feed_data"),
+    path(r"api/v1/daily_metrics/", daily_metrics, name="daily_metrics"),
 
-    # extractor api
-    path(r"api/v1/itsm/", itsm, name="itsm"),
-    path(r"api/v1/soar/", soar, name="soar"),
-    path(r"api/v1/siem/", siem, name="siem"),
-    path(r"api/v1/soar_stg/", soar_stg, name="soar_stg")
+    path(r"api/v1/perspective_grid_data/", perspective_grid_data, name="perspective_grid_data"),
+    path(r"api/v1/perspective_master_dropdown/", perspective_master_dropdown, name="perspective_master_dropdown"),
+    path(r"api/v1/security_pulse_grid_data/", security_pulse_grid_data, name="security_pulse_grid_data"),
+    path(r"api/v1/add_perspective_record/", add_perspective_record, name="add_perspective_record"),
+    path(r"api/v1/edit_perspective_record_submit/", edit_perspective_record_submit,
+         name="edit_perspective_record_submit"),
+    path(r"api/v1/edit_perspective_record_fetch/", edit_perspective_record_fetch, name="edit_perspective_record_fetch"),
+    path(r"api/v1/perspective_details_data/", perspective_details_data, name="perspective_details_data"),
+    path(r"api/v1/security_pulse_details_data/", security_pulse_details_data, name="security_pulse_details_data"),
+    path(r"api/v1/security_pulse_record_delete/", security_pulse_record_delete, name="security_pulse_record_delete"),
+    path(r"api/v1/perspective_record_delete/", perspective_record_delete, name="perspective_record_delete"),
+    path(r"api/v1/edit_security_pulse_record_submit/", edit_security_pulse_record_submit,
+         name="edit_security_pulse_record_submit"),
+
+    path(r"api/v1/edit_security_pulse_record_fetch/", edit_security_pulse_record_fetch,
+         name="edit_security_pulse_record_fetch"),
+    path(r"api/v1/add_security_pulse_record/", add_security_pulse_record, name="add_security_pulse_record"),
+    path(r"api/v1/fetch_asset_tags/", fetch_asset_tags, name="fetch_asset_tags"),
+    path(r"api/v1/fetch_enity_tags/", fetch_enity_tags, name="fetch_enity_tags"),
+    path(r"api/v1/fetch_incident_tags/", fetch_incident_tags, name="fetch_incident_tags"),
+    path(r"api/v1/dashboard_grid_data/", dashboard_grid_data, name="dashboard_grid_data"),
+
 ]

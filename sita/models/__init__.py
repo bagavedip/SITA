@@ -22,4 +22,8 @@ from .audit_soar_extractor import Audit_SOAR_EXTRACTOR
 from .audit_siem_stg import Audit_SIEM_STG
 from .audit_itsm_stg import Audit_ITSM_STG
 from .audit_soar_stg import Audit_SOAR_STG
-
+from .insights_update import HubUpdate
+from .cy_feeds import CyFeeds
+from .security_pulse import SecurityPulse
+from .security_pulse_image_data import SecurityPulseImage
+from .perspective import Perspective
