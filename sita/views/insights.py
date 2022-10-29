@@ -8,10 +8,10 @@ import json
 from collections import defaultdict as dd
 
 from sita.models.fact_insights import FACT_INSIGHTS
-from sita.serializers.Insights_timeline import InsightsTimeline
+from sita.serializers.hub_timeline import HubTimeline
 from sita.services.insight_hub_service import HubService
 from sita.constants.dataset import Dataset
-from sita.serializers.insights import InsightsSerializer
+from sita.serializers.hub import InsightsSerializer
 from sita.serializers.ticket_details import TicketDetailsSerializer
 from sita.serializers.masterdata import MasterDataSerialiser
 from sita.services.tickets_service import TicketsService
@@ -176,17 +176,17 @@ class InsightHub(viewsets.GenericViewSet):
         asset_types = FACT_INSIGHTS.objects.values_list('asset_type').distinct()
         asset_dropdown = [{
                         "value": "Select",
-                        "label": "Asset Type | Select"
+                        "label": "Asset Type"
                     }]
         geo = FACT_INSIGHTS.objects.all().values_list('location_name').distinct()
         geo_dropdown = [{
                         "value": "Select",
-                        "label": "Geo | Select"
+                        "label": "Geo"
                     }]
         entities = FACT_INSIGHTS.objects.values_list('entity_name').distinct()
         entity_dropdown = [{
                         "value": "Select",
-                        "label": "Entity | Select"
+                        "label": "Entity"
                     }]
         for asset_type in asset_types:
             new_asset = {
@@ -262,7 +262,7 @@ class InsightHub(viewsets.GenericViewSet):
         """
          Timeline view for insights
         """
-        serializser = InsightsTimeline(request)
+        serializser = HubTimeline(request)
         result = HubService.hub_timeline(serializser)
         return Response(result, status=status.HTTP_200_OK)
 
@@ -289,3 +289,57 @@ class InsightHub(viewsets.GenericViewSet):
             return Response(response_data)
         except UnboundLocalError:
             return Response({"error": "there is no such selectedIncidents."})
+        
+    #This function will add Updates on any incident
+    def add_update(self, request):
+        logger.debug(f"Parsed request body {request.data}")
+
+        # Validating incoming request body
+        serializer = request.data
+
+        # update comment in sla and ticket information
+        logger.debug("Database transaction started")
+        try:
+            with transaction.atomic():
+                soar_id = serializer.get("incident")
+                update = serializer.get("update")
+                update_by = serializer.get("update_by")
+                updates = HubService.add_update(soar_id,update,update_by)
+            logger.debug("Database transaction finished")
+
+            # response formatting
+            response_data = {
+                "message": updates,
+                "status": status.HTTP_201_CREATED
+            }
+            return Response(response_data)
+        except UnboundLocalError:
+            return Response({"error": "there is no such selectedIncidents."})
+
+    def daily_metrics(self, request):
+        """
+         function to count daily records of incident, events, detects, contained
+        """
+        response_data = [
+            {
+                "name": "Detects",
+                "value": "5 M",
+                "color": "#EB6363"
+            },
+            {
+                "name": "Events",
+                "value": "1.3M",
+                "color": "#7394EA"
+            },
+            {
+                "name": "Incidents",
+                "value": "300",
+                "color": "#EB6363"
+            },
+            {
+                "name": "Contained",
+                "value": "98%",
+                "color": "#64C368"
+            }
+        ]
+        return Response(response_data, status=status.HTTP_200_OK)

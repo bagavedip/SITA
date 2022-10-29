@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="users models changes according to dev server code" />
+    <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="users models changes according to dev server code">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/views/hub.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/views/insights.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/insights.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +34,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/dipika/homzhubservices",
+    "last_opened_file_path": "/home/dipika/SITA",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -169,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667043236218</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="users models changes according to dev server code">
+      <created>1667054818456</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1667054818457</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +259,16 @@
           <url>file://$PROJECT_DIR$/sita/services/dashboard.py</url>
           <line>12</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sita/serializers/insights.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sita/views/insights.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
