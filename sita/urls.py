@@ -169,7 +169,7 @@ urlpatterns = urlpatterns + [
     path(r"api/v1/update_entity/<int:entity_id>", update_entity, name="Update Entity"),
 
     path(r"api/v1/insight_tickets/", insight_tickets, name="insight_tickets"),
-    path(r"api/v1/insights/", hub, name="insight_hub"),
+    # path(r"api/v1/insights/", hub, name="insight_hub"),
     path(r"api/v1/chart-data", hub, name="insight_hub"),
     path(r"api/v1/insight-grid", insight_tickets, name="insight_tickets"),
     path(r"api/v1/insight-grid-master-dropdowns", grid_master, name="grid_master"),

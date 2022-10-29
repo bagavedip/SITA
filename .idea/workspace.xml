@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="users models changes according to dev server code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/views/hub.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sita/views/insights.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/insights.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667054818457</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="users models changes according to dev server code">
+      <created>1667058003072</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1667058003072</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,19 +262,19 @@
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sita/services/dashboard.py</url>
-          <line>12</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sita/serializers/insights.py</url>
           <line>10</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sita/views/insights.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="34" />
+          <line>157</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sita/serializers/ticket_details.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
