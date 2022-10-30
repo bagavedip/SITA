@@ -1,7 +1,7 @@
 from .assets import Assets
 from .entity import Entity
 from .source_data import Source
-from .stg_itsm import STG_ITSM
+from .fact_oei import FACT_OEI
 from .category import Category
 from .functions import Function
 from .geolocations import GeoLocation
@@ -27,3 +27,4 @@ from .cy_feeds import CyFeeds
 from .security_pulse import SecurityPulse
 from .security_pulse_image_data import SecurityPulseImage
 from .perspective import Perspective
+from .stg_itsm import STG_ITSM

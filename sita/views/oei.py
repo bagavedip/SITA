@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from sita.constants.dataset import Dataset
-from sita.models import STG_ITSM
+from sita.models import FACT_OEI
 from sita.models.add_oei_comment import AddOeiComment
 from sita.serializers.oei_timeline import OeiTimeline
 from sita.serializers.itsm import ITSMSerializer
@@ -125,22 +125,22 @@ class ITSMViewSet(viewsets.ModelViewSet):
         """
 
         logger.debug(f"Received request body {request.data}")
-        categories = STG_ITSM.objects.values_list('is_overdue').distinct()
+        categories = FACT_OEI.objects.values_list('is_overdue').distinct()
         category_dropdown = [{
                         "value": "Select",
                         "label": "Category"
                     }]
-        priorities = STG_ITSM.objects.values_list('Priority').distinct()
+        priorities = FACT_OEI.objects.values_list('Priority').distinct()
         priority_dropdown = [{
                         "value": "Select",
                         "label": "Priority"
                     }]
-        statuses = STG_ITSM.objects.values_list('RequestStatus').distinct()
+        statuses = FACT_OEI.objects.values_list('RequestStatus').distinct()
         status_dropdown = [{
                         "value": "Select",
                         "label": "Status"
                     }]
-        reopened = STG_ITSM.objects.values_list('reopened').distinct()
+        reopened = FACT_OEI.objects.values_list('reopened').distinct()
         reopened_dropdown = [{
                         "value": "Select",
                         "label": "Reopened"
@@ -255,10 +255,10 @@ class ITSMViewSet(viewsets.ModelViewSet):
         hirarchial_data = self.convert_data(result)
         if len(serializser.datasets) !=1:
             self.update_events(hirarchial_data)
-        query_data = STG_ITSM.objects.filter(CreatedTime__gte=serializser.start_date,
-                                         Ending_time__lte=serializser.end_date).count()
-        data = STG_ITSM.objects.filter(CreatedTime__gte=serializser.start_date,
-                                   Ending_time__lte=serializser.end_date, is_overdue='1').count()
+        query_data = FACT_OEI.objects.filter(CreatedTime__gte=serializser.start_date,
+                                             Ending_time__lte=serializser.end_date).count()
+        data = FACT_OEI.objects.filter(CreatedTime__gte=serializser.start_date,
+                                       Ending_time__lte=serializser.end_date,is_overdue='1').count()
         total_ticket = query_data
         legends = []
         if total_ticket == 0:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from sita.models.stg_itsm import STG_ITSM
+from sita.models.fact_oei import FACT_OEI
 
 
 class ITSMSerializer(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class ITSMSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = STG_ITSM
+        model = FACT_OEI
         fields = "__all__"
 
 
@@ -21,7 +21,7 @@ class CommentSerializer(serializers.ModelSerializer):
     Comment = serializers.CharField(max_length=100, allow_null=True)
 
     class Meta:
-        model = STG_ITSM
+        model = FACT_OEI
         fields = (
             "SIEM_id",
             "comment")

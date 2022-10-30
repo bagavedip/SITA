@@ -6,7 +6,7 @@ from dateutil import relativedelta
 from django.db.models import Count, Q
 
 from sita.models.add_oei_comment import AddOeiComment
-from sita.models.stg_itsm import STG_ITSM
+from sita.models.fact_oei import FACT_OEI
 from sita.models.insights_update import HubUpdate
 from sita.serializers.oei_timeline import OeiTimeline
 from sita.serializers.oei_serializers import OeiSerializer
@@ -23,7 +23,7 @@ class ITSMService:
     @staticmethod
     def get_queryset():
         """Function to return all ITSM data"""
-        return STG_ITSM.objects.all()
+        return FACT_OEI.objects.all()
 
     @staticmethod
     def itsm_filter(asset):
@@ -40,7 +40,7 @@ class ITSMService:
         Function for Oei donut chart
         """
         query_data = (
-            STG_ITSM.objects.filter(CreatedTime__gte=response_obj.start_date,
+            FACT_OEI.objects.filter(CreatedTime__gte=response_obj.start_date,
                                     Ending_time__lte=response_obj.end_date).values(*response_obj.model_group_map)
             .order_by().annotate(events=Count('Itsm_id'))
         )
@@ -53,7 +53,7 @@ class ITSMService:
         Function for Oei Ticket details information.
         """
         filter_q = Q(**response_obj.filters)
-        query_data = STG_ITSM.objects.filter(filter_q).values(*response_obj.select_cols)
+        query_data = FACT_OEI.objects.filter(filter_q).values(*response_obj.select_cols)
         return query_data
 
     @staticmethod
@@ -216,13 +216,13 @@ class ITSMService:
             title2 = calendar.month_name[end_time.month]+str(end_time.day)
             for x in range(0, total_days+1):
                 within_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + timedelta(days=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + timedelta(days=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "false").count())
@@ -237,13 +237,13 @@ class ITSMService:
             title2 = calendar.month_name[end_time.month]+str(end_time.year)
             for x in range(0, delta.months):
                 within_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "false").count())
@@ -259,13 +259,13 @@ class ITSMService:
             title2 = end_time.year
             for x in range(1, delta.years):
                 within_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "true").count())
                 within_tickets.append(within_query)
                 outside_query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
                                             Ending_time__lte=end_time,
                                             is_overdue= "false").count())
@@ -341,7 +341,7 @@ class ITSMService:
             title2 = calendar.month_name[end_time.month]+str(end_time.day)
             for x in range(0, total_days+1):
                 query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + timedelta(days=1),
                                             Ending_time__lte=end_time).count()
                 )
@@ -355,7 +355,7 @@ class ITSMService:
             title2 = calendar.month_name[end_time.month]+str(end_time.year)
             for x in range(0, delta.months):
                 query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
                                             Ending_time__lte=end_time).count()
                 )
@@ -371,7 +371,7 @@ class ITSMService:
             title2 = end_time.year
             for x in range(1, delta.years):
                 query = (
-                    STG_ITSM.objects.filter(CreatedTime__gte=start_date,
+                    FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
                                             Ending_time__lte=end_time).count())
                 time.append(start_date.year)

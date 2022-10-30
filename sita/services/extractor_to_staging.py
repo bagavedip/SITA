@@ -1,5 +1,5 @@
 from datetime import datetime
-from sita.models import EXTRACTOR_SOAR,STG_SOAR,EXTRACTOR_ITSM,EXTRACTOR_SIEM,STG_SIEM,STG_ITSM,Audit_SOAR_EXTRACTOR, \
+from sita.models import EXTRACTOR_SOAR,STG_SOAR,EXTRACTOR_ITSM,EXTRACTOR_SIEM,STG_SIEM,FACT_OEI,Audit_SOAR_EXTRACTOR, \
     Audit_SIEM_EXTRACTOR,Audit_ITSM_EXTRACTOR
 from sita.models.audit_siem_stg import Audit_SIEM_STG
 from sita.models.audit_soar_stg import Audit_SOAR_STG
@@ -290,7 +290,7 @@ class ExtractorToStgService:
                             "subject": query.get("subject", None)
                         }
                         final_itsm.append(itsm)
-                        a = STG_ITSM.objects.create(**itsm)
+                        a = FACT_OEI.objects.create(**itsm)
                         # this line will create soar data according to given soar dict
                         end_time = datetime.now()
                         status = "Success"

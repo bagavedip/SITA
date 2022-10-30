@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="286e4654-a624-4c5f-a0ea-af4bc780ee33" name="Changes" comment="users models changes according to dev server code">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/fact_oei.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/fact_oei.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/models/stg_itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/models/stg_itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/serializers/itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/serializers/itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/services/extractor_to_staging.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/extractor_to_staging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/services/itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/services/itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/views/itsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/itsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sita/views/oei.py" beforeDir="false" afterPath="$PROJECT_DIR$/sita/views/oei.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667104998465</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="users models changes according to dev server code">
+      <created>1667105117220</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667105117220</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
