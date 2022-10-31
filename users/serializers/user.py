@@ -86,12 +86,12 @@ class AddUserSerializer(serializers.Serializer):
     
 class UserUpdateSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
-    first_name = serializers.CharField(max_length=256, required=False)
-    last_name = serializers.CharField(max_length=256, required=False)
-    phone_code = serializers.CharField(max_length=10, required=False)
-    phone_number = serializers.CharField(max_length=20, required=False)
-    profile_photo = serializers.CharField(required=False)
-    profile_photo_name = serializers.CharField(max_length=100, required=False)
+    first_name = serializers.CharField(max_length=256, required=True)
+    last_name = serializers.CharField(max_length=256, required=True)
+    phone_code = serializers.CharField(max_length=10, required=False, allow_null=True)
+    phone_number = serializers.CharField(max_length=20, required=False, allow_null=True)
+    profile_photo = serializers.CharField(required=False, allow_null=True)
+    profile_photo_name = serializers.CharField(max_length=100, required=False, allow_null=True)
 
     class Meta:
         fields = "__all__"
