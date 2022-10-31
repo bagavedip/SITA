@@ -3,6 +3,8 @@ from django.core.mail import EmailMultiAlternatives, send_mail
 from django.conf import settings
 import datetime
 from cryptography.fernet import Fernet
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
@@ -22,28 +24,23 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
         strnowtime = nowtime.strftime('%m/%d/%y %H:%M')
         encMessage = fernet.encrypt(strnowtime.encode())
         if query:
-            query.key=key
-            query.update()
+            User.objects.all().filter(email__iexact=reciever).update(key=key)
+            key = User.objects.filter(email__iexact=reciever).values('key')
             for q in query:
                 id = q.id
+                first_name = q.first_name
             subject = "Forget Password Link"
-            message = (f"Hi,Please click this link http://20.127.195.117:3000/forget_password/{id}@{encMessage} to reset your password. Thanks, Shashi")
+            message = (f"http://20.127.195.117:3000/forget_password/{id}@{encMessage}")
             email_from = settings.EMAIL_HOST_USER
             email_reciever = [reciever]
-            # messages = (f"Hi,Please click this link http://20.127.195.117:3000/forget_password/{query.id}@{encMessage} to reset your password. Thanks, Shashi")
-            # email_from = settings.FROM
-            # email_reciever = [reciever]
-            # message = """From: %s\r\nTo: %s\r\nSubject: %s\r\n\
-            #     %s
-            #     """ % (email_from, ", ".join(email_reciever), subject, messages)
-            # server = smtplib.SMTP(settings.SERVER)
-            # server.login(email_from, "bcDv%dfter5243")
-            # server.sendmail(email_from, email_reciever, message)
-            # server.quit()
+            html_message = render_to_string("email_template.html", {'link': message, "name": first_name})
+            text_content = strip_tags(html_message)
+
             send_mail(subject,
-                message,
-                email_from,
-                email_reciever)
+                      text_content,
+                      email_from,
+                      email_reciever,
+                      html_message=html_message)
             data={
                 "Status": "SUCCESS",
                 "Messages" : message,
