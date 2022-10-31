@@ -22,45 +22,46 @@ class UserUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def update_name(self, request):
-        request_user = request.data
-        request_data = {
-            "email":request_user["email"],
-            "first_name":request_user["firstName"],
-            "last_name":request_user["lastName"],
-            "phone_code": request_user["phone_code"],
-            "phone_number": request_user["phone_number"],
-            "profile_photo": request_user["profile_photo"],
-            "profile_photo_name": request_user["profile_photo_name"]
-        }
-        serializer = UserUpdateSerializer(data = request_data)
-        serializer.is_valid(raise_exception=True)
-        validated_data = serializer.validated_data
-        if serializer.is_valid():
-            updated_user = User.objects.get(email = request_user.get("email"))
-            if request_user.get("firstName"):
-                updated_user.first_name = validated_data["first_name"]
-            if request_user.get("lastName"):
-                updated_user.last_name = validated_data["last_name"]
-            if request_user.get("phone_number"):
-                updated_user.phone_number = validated_data["phone_number"]
-            if request_user.get("phone_code"):
-                updated_user.phone_code = validated_data["phone_code"]
-            updated_user.profile_photo = None if request_user.get("profile_photo") is None else ContentFile(
-                request_user.get("profile_photo"), name=request_user.get("profile_photo_name"))
+        try:
+            request_user = request.data
+            request_data = {
+                "email":request_user["email"],
+                "first_name":request_user["firstName"],
+                "last_name":request_user["lastName"],
+                "phone_code": None if not request_user["phone_code"] else request_user["phone_code"],
+                "phone_number": None if not request_user["phone_number"] else request_user["phone_number"],
+                "profile_photo": None if not request_user["profile_photo"] else request_user["profile_photo"],
+                "profile_photo_name": None if not request_user["profile_photo_name"] else request_user["profile_photo_name"]
+            }
+            serializer = UserUpdateSerializer(data = request_data)
+            serializer.is_valid(raise_exception=True)
+            validated_data = serializer.validated_data
+            if serializer.is_valid():
+                updated_user = User.objects.get(email = request_user.get("email"))
+                if request_user.get("firstName"):
+                    updated_user.first_name = validated_data["first_name"]
+                if request_user.get("lastName"):
+                    updated_user.last_name = validated_data["last_name"]
+                if request_user.get("phone_number"):
+                    updated_user.phone_number = validated_data["phone_number"]
+                if request_user.get("phone_code"):
+                    updated_user.phone_code = validated_data["phone_code"]
+                updated_user.profile_photo = None if request_user.get("profile_photo") is None else ContentFile(
+                    request_user.get("profile_photo"), name=request_user.get("profile_photo_name"))
 
-            updated_user.save()
+                updated_user.save()
+                return Response(
+                    {
+                    "Data":serializer.data,
+                    "status": "SUCCESS",
+                    "message": "User Updated Successfully!!"
+                    }
+                )
+        except Exception as e:
             return Response(
                 {
-                "Data":serializer.data, 
-                "status": "SUCCESS",
-                "message": "User Updated Successfully!!"
-                }
-            )
-        else:
-            return Response(
-                {
-                "Data":serializer.data, 
-                "status": "SUCCESS",
+                "Data": f"{e}",
+                "status": "failed",
                 "message": "Oops!! Something went wrong"
                 }
             )
