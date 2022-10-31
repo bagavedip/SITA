@@ -21,7 +21,7 @@ class User(AbstractUser):
     profile_photo = models.FileField(_("profile_photo"),upload_to='profile_photos',help_text="profile_photo",default="")
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['is_admin']  # Email & Password are required by default.
+    REQUIRED_FIELDS = ['is_admin', 'first_name', 'last_name']  # Email & Password are required by default.
 
     objects = CustomUserManager()
 
