@@ -53,7 +53,7 @@ class Perspective(models.Model):
 
     # ArrayFields
     incident_id = ArrayField(
-        models.IntegerField(),
+        models.BigIntegerField(),
         default=list,
         help_text=_("incident_id"),
         verbose_name=_("incident_id"), null=True

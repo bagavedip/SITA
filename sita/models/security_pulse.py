@@ -22,7 +22,7 @@ class SecurityPulse(models.Model):
 
     is_published = models.BooleanField(_("is_published"), default=False, help_text=_("is_published"), null=True)
     selected_incident = ArrayField(
-        models.SmallIntegerField(),
+        models.BigIntegerField(),
         default=list,
         help_text=_("selected_incident"),
         verbose_name=_("selected_incident"), null=True
