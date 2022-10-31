@@ -95,6 +95,7 @@ class SecurityPulseService:
             "recommendations": validated_data.get("recommendations"),
             "selected_assets": validated_data.get("selectedAssets"),
             "selected_entities": validated_data.get("selectedEntities"),
+            "selected_incident": validated_data.get("selectedIncidents"),
             "is_published": validated_data.get("isPublished"),
             "created_by": user,
             "updated_by": user,
