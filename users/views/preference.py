@@ -14,7 +14,7 @@ class PreferenceViewSet(viewsets.GenericViewSet):
     def preference_input(self, request):
         try:
             logger.debug(f"Parsed request body {request.data}")
-            user_id = request.user
+            user_id = request.user.pk
             validated_data = request.data
 
             PreferenceService.preference_input(user_id, validated_data)
@@ -36,10 +36,8 @@ class PreferenceViewSet(viewsets.GenericViewSet):
     def preference_fetch(self, request):
         try:
             logger.debug(f"Parsed request body {request.data}")
-
-            queryset = Preference.objects.filter(user=request.user.pk).values("user_id","session")
+            queryset = Preference.objects.filter(user=request.user.pk).values("user","session")
             query = queryset[0]
-            print(request.user.pk)
 
             return Response(query)
         except Exception as e:
