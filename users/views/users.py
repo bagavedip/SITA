@@ -7,6 +7,8 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import mixins, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
+from users.models import User
 from users.serializers.user import LoginSerializer, UserSerializer, AddUserSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -53,6 +55,9 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             raise AuthenticationFailed
         data = self.get_auth_tokens(user)
         data.update({"user": UserSerializer(user).data})
+        data["user"]["profile_photo"] = None if bool(user.profile_photo) is False else user.profile_photo.read()
+        data["user"]["profile_photo_name"] = None if bool(user.profile_photo) is False \
+            else str(user.profile_photo).split('/')[1]
         return data
 
     @action(detail=False, methods=["post"])
