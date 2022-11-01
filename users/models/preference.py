@@ -17,6 +17,8 @@ class Preference(models.Model):
         related_name="+",
     )
     session = models.JSONField(_("session"), default=dict, help_text=_("session"), null=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self):
         return self.user + "preference"

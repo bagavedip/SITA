@@ -8,7 +8,7 @@ from rest_framework import mixins, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from users.models import User
+from users.models import User, Preference
 from users.serializers.user import LoginSerializer, UserSerializer, AddUserSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -53,11 +53,18 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         if not user.check_password(payload["password"]):
             logger.error("Password verification failed.")
             raise AuthenticationFailed
+        if not Preference.objects.filter(user=user):
+            Preference.objects.create(user=user,session={"oei": {"day_filter": "1 Day"},
+                                                         "insights": {"day_filter": "1 Day"},
+                                                         "perspective": {"day_filter": "1 Day"}})
+        else:
+            pass
         data = self.get_auth_tokens(user)
         data.update({"user": UserSerializer(user).data})
         data["user"]["profile_photo"] = None if bool(user.profile_photo) is False else user.profile_photo.read()
         data["user"]["profile_photo_name"] = None if bool(user.profile_photo) is False \
             else str(user.profile_photo).split('/')[1]
+
         return data
 
     @action(detail=False, methods=["post"])
