@@ -293,9 +293,10 @@ class PerspectiveService:
         """
         Function which fetch perspective grid
         """
+        filter_q = Q(**response_obj.filters)
         query_data = None
         if not response_obj.dropdownFilters:
-            query_data = Perspective.objects.all().values(*response_obj.select_cols)
+            query_data = Perspective.objects.all(filter_q).values(*response_obj.select_cols)
         else:
             found_filters = {}
             name_replacement_dict = {"Perspective Type": "perspective_type",
