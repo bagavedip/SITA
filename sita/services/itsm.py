@@ -219,13 +219,13 @@ class ITSMService:
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + timedelta(days=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "true").count())
+                                            is_overdue="Within SLA").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + timedelta(days=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "false").count())
+                                            is_overdue="Outside SLA").count())
                 outside_tickets.append(outside_query)
 
                 time.append(calendar.month_name[start_date.month]+str(start_date.day))
@@ -240,13 +240,13 @@ class ITSMService:
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "true").count())
+                                            is_overdue="Within SLA").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(months=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "false").count())
+                                            is_overdue="Outside SLA").count())
                 outside_tickets.append(outside_query)
                 time.append(calendar.month_name[start_date.month])
                 start_date = start_date + relativedelta.relativedelta(months=1)
@@ -262,13 +262,13 @@ class ITSMService:
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "true").count())
+                                            is_overdue="Within SLA").count())
                 within_tickets.append(within_query)
                 outside_query = (
                     FACT_OEI.objects.filter(CreatedTime__gte=start_date,
                                             CreatedTime__lte=start_date + relativedelta.relativedelta(years=1),
                                             Ending_time__lte=end_time,
-                                            is_overdue= "false").count())
+                                            is_overdue="Outside SLA").count())
                 outside_tickets.append(outside_query)
                 time.append(start_date.year)
                 start_date = start_date + relativedelta.relativedelta(years=1)

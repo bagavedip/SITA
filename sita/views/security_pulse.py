@@ -59,6 +59,9 @@ class SecurityPulseViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def security_pulse_grid_data(self, request):
+        """
+         function define for security pulse grid data
+        """
         try:
             logger.debug(f"Received request body {request.data}")
 
@@ -100,6 +103,9 @@ class SecurityPulseViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def edit_security_pulse_record_fetch(self, request):
+        """
+         Function define for  edit security pulse record fetch
+        """
         try:
             perspective_id = request.data.get("id")
             perspective = SecurityPulseService.edit_security_pulse_record_fetch(perspective_id)
@@ -109,6 +115,9 @@ class SecurityPulseViewSet(viewsets.GenericViewSet):
             return Response({"message": response_data, "status": "error"})
 
     def security_pulse_details_data(self, request):
+        """
+         Function define for security pulse details data
+        """
         try:
             perspective_id = request.data.get("id")
             perspective = SecurityPulseService.security_pulse_details_data(perspective_id)

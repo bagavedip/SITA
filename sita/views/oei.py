@@ -6,10 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from sita.constants.dataset import Dataset
-from sita.models import FACT_OEI
-from sita.models.add_oei_comment import AddOeiComment
+from sita.models.fact_oei import FACT_OEI
 from sita.serializers.oei_timeline import OeiTimeline
-from sita.serializers.itsm import ITSMSerializer
 from sita.serializers.oei_serializers import OeiSerializer
 from sita.serializers.oei_ticket_details import TicketDetailsSerializer
 from sita.services.itsm import ITSMService
@@ -42,7 +40,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
                     key_index += 1
 
             nested_dict = eval(nested_dict_str)
-            # sala = STG_ITSM.objects.filter(sla_name=keys.).count()
+            # sala = ITSM.objects.filter(sla_name=keys.).count()
             temp1 = "nested_dict" + key_var + ".append(data.get('events'))"
             # Note that variable name here has to be "data" as this is what is used to build the executable string above
             for data in dataset:
@@ -179,7 +177,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
                 "dropdownoption": [
                     {
                         "value": "Select",
-                        "label": "Service | Select"
+                        "label": "Service"
                     },
                     {
                         "label": "SOC",
@@ -194,7 +192,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
                 "dropdownoption": [
                     {
                         "value": "Select",
-                        "label": "First response Time | Select"
+                        "label": "First response Time"
                     },
                     {
                         "label": "All",
