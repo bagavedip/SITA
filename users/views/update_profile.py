@@ -18,10 +18,15 @@ from users.services.user import UserService
 logger = logging.getLogger(__name__)
 
 class UserUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
-
+    """
+    View for handling User's profile update
+    """
     permission_classes = [IsAuthenticated]
 
     def update_name(self, request):
+        """
+        Function for updating User's profile
+        """
         try:
             request_user = request.data
             request_data = {
@@ -61,7 +66,7 @@ class UserUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
             return Response(
                 {
                 "Data": f"{e}",
-                "status": "failed",
+                "status": status.HTTP_400_BAD_REQUEST,
                 "message": "Oops!! Something went wrong"
                 }
             )

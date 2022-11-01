@@ -10,7 +10,7 @@ from sita.models.fact_oei import FACT_OEI
 from sita.serializers.oei_timeline import OeiTimeline
 from sita.serializers.oei_serializers import OeiSerializer
 from sita.serializers.oei_ticket_details import TicketDetailsSerializer
-from sita.services.itsm import ITSMService
+from sita.services.oei_service import ITSMService
 import json
 from collections import defaultdict as dd
 

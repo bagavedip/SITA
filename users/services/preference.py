@@ -5,7 +5,7 @@ from users.models.preference import Preference
 
 class PreferenceService:
     """
-
+    Service for preference model
     """
     @staticmethod
     def preference_input(user_id, validated_data):

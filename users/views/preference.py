@@ -11,8 +11,13 @@ logger = logging.getLogger(__name__)
 
 
 class PreferenceViewSet(viewsets.GenericViewSet):
-
+    """
+    Class for handling User's preference for Dashboard
+    """
     def preference_input(self, request):
+        """
+        Function for saving User's preference
+        """
         try:
             logger.debug(f"Parsed request body {request.data}")
             user_id = request.user.id
@@ -38,6 +43,9 @@ class PreferenceViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def preference_fetch(self, request):
+        """
+        Function for fetching User's preference
+        """
         try:
             logger.debug(f"Parsed request body {request.data}")
             queryset = Preference.objects.filter(user=request.user.id).values("user","session")

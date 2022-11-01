@@ -14,6 +14,9 @@ logger = logging.getLogger(__name__)
 class PasswordReset(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def reset_password(self, request):
+        """
+        Function for reset password
+        """
         request_user = request.data
         request_data = {
             "email":request_user["email"],

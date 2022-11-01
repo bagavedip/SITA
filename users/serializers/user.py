@@ -73,7 +73,9 @@ class AddUserSerializer(serializers.Serializer):
         )
 
     def create(self, validated_data):
-        #  function creates user object
+        """
+        Function creates user object
+        """
         user = User.objects.create(
             password=validated_data['password'],
             email=validated_data['email'],
@@ -85,6 +87,9 @@ class AddUserSerializer(serializers.Serializer):
     
     
 class UserUpdateSerializer(serializers.Serializer):
+    """
+    Serializer for updating User's profile
+    """
     email = serializers.EmailField(required=True)
     first_name = serializers.CharField(max_length=256, required=True)
     last_name = serializers.CharField(max_length=256, required=True)
@@ -97,6 +102,9 @@ class UserUpdateSerializer(serializers.Serializer):
         fields = "__all__"
 
 class PasswordUpdateSerializer(serializers.Serializer):
+    """
+    Serializer for updating password
+    """
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, max_length=15)
 

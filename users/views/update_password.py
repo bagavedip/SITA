@@ -16,6 +16,9 @@ class PasswordUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def update_password(self, request):
+        """
+        Function for update password
+        """
         request_user = request.data
         request_data = {
             "email":request_user["email"],

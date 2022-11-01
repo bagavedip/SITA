@@ -16,6 +16,9 @@ from users.services.user import UserService
 class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def sent_mail(self, request):
+        """
+        Function for sending the mail for forget password
+        """
         reciever = request.data['email']
         query = User.objects.all().filter(email__iexact = reciever)
         key = Fernet.generate_key()
@@ -58,6 +61,9 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
         )
 
     def decrypt_hashcode(self, request):
+        """
+        Function for decrypting hashcode of send mail
+        """
         requesttoken = request.data['token']
         id=requesttoken.split("@")[0]
         token=requesttoken.split("@")[1]

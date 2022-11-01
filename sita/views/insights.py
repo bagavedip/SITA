@@ -13,9 +13,7 @@ from sita.services.insight_hub_service import HubService
 from sita.constants.dataset import Dataset
 from sita.serializers.hub import InsightsSerializer
 from sita.serializers.ticket_details import TicketDetailsSerializer
-from sita.serializers.masterdata import MasterDataSerialiser
 from sita.services.tickets_service import TicketsService
-from sita.services.masterdata import MasterDataService
 
 logger = logging.getLogger(__name__)
 
@@ -168,10 +166,6 @@ class InsightHub(viewsets.GenericViewSet):
          Dropdown data of Insights grid view
         """
         logger.debug(f"Received request body {request.data}")
-
-        response_obj = MasterDataSerialiser()
-
-        data = MasterDataService.get_master_data(response_obj)
 
         asset_types = FACT_INSIGHTS.objects.values_list('asset_type').distinct()
         asset_dropdown = [{
