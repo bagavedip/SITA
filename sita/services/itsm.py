@@ -274,12 +274,12 @@ class ITSMService:
                 start_date = start_date + relativedelta.relativedelta(years=1)
         title = str(title1)+"-"+str(title2)
         newdata = {
-            "label": "within sla",
+            "label": "Within SLA",
             "data": within_tickets,
             "backgroundColor": "#16293A"
         }
         newdata1 = {
-            "label": "outside sla",
+            "label": "Outside SLA",
             "data": outside_tickets,
             "backgroundColor": "#437DB1"
 
