@@ -17,8 +17,8 @@ class ColorMap:
         }
 
         value0 = {
-            "false": "#B72A35",
-            "true": "#1DBC36",
+            "Outside_SLA": "#B72A35",
+            "Within_SLA": "#1DBC36",
         }
 
         Category = {
