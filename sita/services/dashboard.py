@@ -10,6 +10,9 @@ logger = logging.getLogger(__name__)
 class DashboardService:
     @staticmethod
     def dashboard_grid_data():
+        """
+        Function for get Dashboard grid data
+        """
         cyfeed = CyFeeds.objects.all().order_by('-timestamp')
         feeds = []
         # using for loop to store the data

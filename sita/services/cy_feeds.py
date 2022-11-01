@@ -2,6 +2,9 @@ from rest_framework.response import Response
 from sita.models.cy_feeds import CyFeeds
 
 class Cy_FeedsService:
+    """
+    Service for handling cy feeds
+    """
     
     @staticmethod
     def get_cy_feeds():

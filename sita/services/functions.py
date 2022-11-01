@@ -25,6 +25,9 @@ class FunctionService:
 
     @staticmethod
     def function_filter(Location_id):
+        """
+        Function which filter by location id
+        """
         filtered_data = FunctionService.get_queryset().filter(location_id=Location_id)
         return filtered_data
 

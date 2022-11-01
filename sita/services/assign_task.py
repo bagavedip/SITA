@@ -19,6 +19,9 @@ class AssignTaskService:
 
     @staticmethod
     def assign_user(selectedIncidents, userName):
+        """
+        Service for assigning Incident to User
+        """
         incident_list = []
         for incident in selectedIncidents:
             incident_list.append(

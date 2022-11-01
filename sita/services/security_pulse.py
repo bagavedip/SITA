@@ -11,7 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 class SecurityPulseService:
-
+    """
+    Service for Security Pulse model
+    """
     @staticmethod
     def update(asset,**kwargs):
         """
@@ -25,6 +27,9 @@ class SecurityPulseService:
 
     @staticmethod
     def create_from_validated_data(user,validated_data):
+        """
+        Function for creating security pulse with validated data
+        """
         sections = validated_data.get("sections")
         security_pulse_kwargs = {
             "criticality_type": validated_data.get("criticality"),
@@ -67,6 +72,9 @@ class SecurityPulseService:
 
     @staticmethod
     def security_pulse_grid(response_obj: SecurityPulseGridSerializer):
+        """
+        Function which fetches security pulse grid
+        """
         query_data = SecurityPulse.objects.all().values(*response_obj.select_cols)
         query_data = reversed(query_data)
         return query_data
@@ -84,6 +92,9 @@ class SecurityPulseService:
 
     @staticmethod
     def update_from_validated_data(user, validated_data):
+        """
+        Function which update security pulse with validated data
+        """
         securityPulseId = int(validated_data.get("securityPulseId"))
         queryset = SecurityPulse.objects.get(id=securityPulseId)
         sections = validated_data.get("sections")

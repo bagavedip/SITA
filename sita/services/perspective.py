@@ -100,6 +100,9 @@ class PerspectiveService:
 
     @staticmethod
     def create_from_validated_data(user, validated_data):
+        """
+        Function for creating perspective with validated data
+        """
         imageData1 = validated_data.get("imageData1", None)
         imageData2 = validated_data.get("imageData2", None)
         imageData3 = validated_data.get("imageData3", None)
@@ -141,6 +144,9 @@ class PerspectiveService:
 
     @staticmethod
     def update_from_validated_data(user, validated_data):
+        """
+        Function for updating perspective with validated data
+        """
         perspectiveId = int(validated_data.get("perspectiveId"))
         queryset = Perspective.objects.get(id=perspectiveId)
         imageData1 = validated_data.get("imageData1", None)
@@ -284,6 +290,9 @@ class PerspectiveService:
 
     @staticmethod
     def perspective_grid(response_obj: PerspectiveGridSerializer):
+        """
+        Function which fetch perspective grid
+        """
         query_data = None
         if not response_obj.dropdownFilters:
             query_data = Perspective.objects.all().values(*response_obj.select_cols)

@@ -24,6 +24,9 @@ class HubService:
 
     @staticmethod
     def get_insights(response_obj: InsightsSerializer):
+        """
+        Function for getting insights data
+        """
         query_data = (
             FACT_INSIGHTS.objects.filter(starttime__gte=response_obj.start_date, endtime__lte=response_obj.end_date).
             values(*response_obj.model_group_map).order_by().annotate(events=Count('itsm_id')))
@@ -37,6 +40,9 @@ class HubService:
 
     @staticmethod
     def get_legends(response_obj: InsightsSerializer):
+        """
+        Function for getting legends data
+        """
         query_data = (
             FACT_INSIGHTS.objects.filter(starttime__gte=response_obj.start_date, endtime__lte=response_obj.end_date).
             values(response_obj.legend_filter).distinct(response_obj.legend_filter))
@@ -47,6 +53,9 @@ class HubService:
 
     @staticmethod
     def asset_details(incident):
+        """
+        Function for getting asset details
+        """
         data = HubService.get_queryset().filter(soar_id=incident)
         updates = HubUpdate.objects.all().filter(soar_id=incident).order_by('-update_date')[:6]
         desktop = 0
@@ -163,6 +172,9 @@ class HubService:
 
     @staticmethod
     def hub_timeline(response: InsightsTimeline):
+        """
+        Function for getting hub timeline data
+        """
         for filter_data in response.request_filters:
             request_filter = filter_data
         for filter_data in response.header_filters:
@@ -266,6 +278,9 @@ class HubService:
 
     @staticmethod
     def incident_comment(selectedIncidents, comment):
+        """
+        Function for saving incident comment
+        """
         comment = AddComment(
             incident_id=selectedIncidents,
             comment=comment
@@ -275,6 +290,9 @@ class HubService:
 
     @staticmethod
     def assign_user(selectedIncidents, user):
+        """
+        Function for assigning User to Incidents
+        """
         assign_list = []
         for incidents in selectedIncidents:
             queryset = AssignTask.objects.filter(incident_id=incidents)
@@ -291,6 +309,9 @@ class HubService:
 
     @staticmethod
     def add_update(soar_id, update, update_by):
+        """
+        Function for adding update to soar id
+        """
         update = HubUpdate(
             soar_id= soar_id,
             updates = update,

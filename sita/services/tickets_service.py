@@ -10,6 +10,9 @@ class TicketsService:
 
     @staticmethod
     def get_tickets(response_obj: TicketDetailsSerializer):
+        """
+        Function for getting ticket details 
+        """
         filter_q = Q(**response_obj.filters)
         query_data = FACT_INSIGHTS.objects.filter(filter_q).values(*response_obj.select_cols)
         return query_data
