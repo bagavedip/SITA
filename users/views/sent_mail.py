@@ -19,46 +19,52 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
         """
         Function for sending the mail for forget password
         """
-        reciever = request.data['email']
-        query = User.objects.all().filter(email__iexact = reciever)
-        key = Fernet.generate_key()
-        fernet = Fernet(key)
-        nowtime = datetime.datetime.now()
-        strnowtime = nowtime.strftime('%m/%d/%y %H:%M')
-        encMessage = fernet.encrypt(strnowtime.encode())
-        if query:
-            User.objects.all().filter(email__iexact=reciever).update(key=key)
-            key = User.objects.filter(email__iexact=reciever).values('key')
-            for q in query:
-                id = q.id
-                first_name = q.first_name
-            subject = "Forget Password Link"
-            message = (f"http://devsita.netrum-tech.com/forget_password/{id}@{encMessage}")
-            email_from = settings.EMAIL_HOST_USER
-            email_reciever = [reciever]
-            html_message = render_to_string("email_template.html", {'link': message, "name": first_name})
-            text_content = strip_tags(html_message)
+        try:
+            reciever = request.data['email']
+            query = User.objects.all().filter(email__iexact = reciever)
+            key = Fernet.generate_key()
+            fernet = Fernet(key)
+            nowtime = datetime.datetime.now()
+            strnowtime = nowtime.strftime('%m/%d/%y %H:%M')
+            encMessage = fernet.encrypt(strnowtime.encode())
+            if query:
+                User.objects.all().filter(email__iexact=reciever).update(key=key)
+                key = User.objects.filter(email__iexact=reciever).values('key')
+                for q in query:
+                    id = q.id
+                    first_name = q.first_name
+                subject = "Forget Password Link"
+                message = (f"http://devsita.netrum-tech.com/forget_password/{id}@{encMessage}")
+                email_from = settings.EMAIL_HOST_USER
+                email_reciever = [reciever]
+                html_message = render_to_string("email_template.html", {'link': message, "name": first_name})
+                text_content = strip_tags(html_message)
 
-            send_mail(subject,
-                      text_content,
-                      email_from,
-                      email_reciever,
-                      html_message=html_message)
+                send_mail(subject,
+                          text_content,
+                          email_from,
+                          email_reciever,
+                          html_message=html_message)
+                data={
+                    "Status": "SUCCESS",
+                    "Messages" : message,
+                    "Message" : "Mail Successfully sent"
+                }
+                return Response(
+                    {
+                        "Data": data
+                    }
+                )
+        except Exception as e:
             data={
-                "Status": "SUCCESS",
-                "Messages" : message,
-                "Message" : "Mail Successfully sent"
+                "Status" : status.HTTP_400_BAD_REQUEST,
+                "Message": f"{e}"
             }
-        else:
-            data={
-                "Status" : "FAILED",
-                "Message" : "User Not exist!"
-            }
-        return Response(
-            {
-            "Data":data
-            }
-        )
+            return Response(
+                {
+                "Data":data
+                }
+            )
 
     def decrypt_hashcode(self, request):
         """
