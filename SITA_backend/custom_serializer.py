@@ -58,8 +58,10 @@ class PasswordField(serializers.CharField):
         kwargs["write_only"] = True
         kwargs["min_length"] = settings.PASSWORD_MIN_LENGTH
         kwargs["validators"] = [
-            RegexValidator(regex=settings.MIN_ONE_CHAR_REGEX, message=error_message, code=error_code),
-            RegexValidator(regex=settings.MIN_ONE_SPECIAL_CHAR_REGEX, message=error_message, code=error_code,),
+            RegexValidator(regex=settings.MIN_ONE_CHAR_REGEX, message=error_message,
+                           code=error_code),
+            RegexValidator(regex=settings.MIN_ONE_SPECIAL_CHAR_REGEX, message=error_message,
+                           code=error_code,),
         ]
         super().__init__(*args, **kwargs)
 
