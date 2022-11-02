@@ -7,7 +7,7 @@ hire_del = 'HIREDEL'
 PERSPECTIVE_TABLE_HEADER = {
     'INCIDENT ID': 'id',
     'Publish / Draft': 'is_published',
-    'DATE': 'updated_at',
+    'DATE': 'created_at',
     'TYPE': 'perspective_type',
     'TITLE': 'perspective_title',
     'STATUS TYPE': 'status_type',
