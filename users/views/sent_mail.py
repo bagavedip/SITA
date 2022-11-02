@@ -70,47 +70,48 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
         """
         Function for decrypting hashcode of send mail
         """
-        requesttoken = request.data['token']
-        id=requesttoken.split("@")[0]
-        token=requesttoken.split("@")[1]
-        new = token.split("'")[1]
-        bytetoken = new.encode('utf-8')
-        user=User.objects.all().filter(id=id)
-        data={
-            "Status" : "FAILED",
-            "Message" : "Session Timeout!!"
-        }
-        for q in user:
-            user_key = q.key
-            user.key = ""
-            user.update()
-            print(user_key)
-        if user_key :
-            key = user_key
-            user.key = ""
-            user.save()
-            fernet = Fernet(key)
-            decMessage = fernet.decrypt(bytetoken).decode()
-            newdatetime=datetime.datetime.strptime(decMessage, format('%m/%d/%y %H:%M'))
-            current_time= datetime.datetime.now()
-            backcurrenttime = current_time - datetime.timedelta(minutes=30)
-            if newdatetime > backcurrenttime:
-                data={
-                    "Status": "SUCCESS",
-                    "Message" : "Success"
+        try:
+            requesttoken = request.data['token']
+            id = requesttoken.split("@")[0]
+            token = requesttoken.split("@")[1]
+            new = token.split("'")[1]
+            bytetoken = new.encode('utf-8')
+            user = User.objects.all().filter(id=id)
+            
+            for q in user:
+                user_key = q.key
+                user.key = ""
+                user.update()
+
+            if user_key:
+                key = user_key
+                fernet = Fernet(key)
+                decMessage = fernet.decrypt(token=bytetoken).decode()
+                newdatetime = datetime.datetime.strptime(decMessage, format('%m/%d/%y %H:%M'))
+                current_time = datetime.datetime.now()
+                backcurrenttime = current_time - datetime.timedelta(minutes=30)
+                if newdatetime > backcurrenttime:
+                    data = {
+                        "Status": "SUCCESS",
+                        "Message": "Success",
+                    }
+                else:
+                    data = {
+                        "Status": "FAILED",
+                        "Message": "Session Timeout!!"
+                    }
+                return Response(
+                    {
+                        "Data": data
+                    }
+                )
+        except Exception as e:
+            data = {
+                    "Status": "FAILED",
+                    "Message": f"{e}"
                 }
-            else:
-                data={
-                    "Status" : "FAILED",
-                    "Message" : "Session Timeout!!"
+            return Response(
+                {
+                    "Data": data
                 }
-        else:
-            data={
-                    "Status" : "FAILED",
-                    "Message" : "Session Timeout!!"
-                }
-        return Response(
-            {
-            "Data":data
-            }
-        )
+            )
