@@ -14,8 +14,8 @@ class PerspectiveGridSerializer:
         self.end_date = request_data.get('toDate')
         self.dropdownFilters = request_data.get("dropdownFilters")
         self.filters = {}
-        self.filters['updated_at__gte'] = self.start_date
-        self.filters['updated_at__lte'] = self.end_date
+        self.filters['created_at__gte'] = self.start_date
+        self.filters['created_at__lte'] = self.end_date
 
         self.columns_headers = []
         self.select_cols = []
