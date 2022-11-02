@@ -33,7 +33,7 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 id = q.id
                 first_name = q.first_name
             subject = "Forget Password Link"
-            message = (f"http://20.127.195.117:3000/forget_password/{id}@{encMessage}")
+            message = (f"http://devsita.netrum-tech.com/forget_password/{id}@{encMessage}")
             email_from = settings.EMAIL_HOST_USER
             email_reciever = [reciever]
             html_message = render_to_string("email_template.html", {'link': message, "name": first_name})
