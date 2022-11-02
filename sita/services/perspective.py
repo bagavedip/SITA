@@ -296,7 +296,7 @@ class PerspectiveService:
         filter_q = Q(**response_obj.filters)
         query_data = None
         if not response_obj.dropdownFilters:
-            query_data = Perspective.objects.all().values(*response_obj.select_cols)
+            query_data = Perspective.objects.filter(filter_q).values(*response_obj.select_cols)
         else:
             found_filters = {}
             name_replacement_dict = {"Perspective Type": "perspective_type",
@@ -307,7 +307,7 @@ class PerspectiveService:
                 else:
                     pass
             filter_found = Q(**found_filters)
-            query_data = Perspective.objects.filter(filter_found).values(
+            query_data = Perspective.objects.filter(filter_q).filter(filter_found).values(
                 *response_obj.select_cols)
         query_data = sorted(query_data, key=itemgetter('created_at'), reverse=True)
         return query_data
