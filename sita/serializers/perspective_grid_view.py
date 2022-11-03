@@ -14,8 +14,8 @@ class PerspectiveGridSerializer:
         self.end_date = request_data.get('toDate')
         self.dropdownFilters = request_data.get("dropdownFilters")
         self.filters = {}
-        self.filters['created_at__gte'] = self.start_date
-        self.filters['created_at__lte'] = self.end_date
+        self.filters['updated_at__gte'] = self.start_date
+        self.filters['updated_at__lte'] = self.end_date
 
         self.columns_headers = []
         self.select_cols = []
@@ -40,7 +40,7 @@ class PerspectiveGridSerializer:
         grid_data = []
         for row in data:
             row_data = {}
-            None if row.get("created_at") is None else row.update({"created_at": row.get("created_at").strftime("%m-%d-%Y")})
+            None if row.get("updated_at") is None else row.update({"updated_at": row.get("updated_at").strftime("%m-%d-%Y")})
             row.update({"is_published": "Publish"}) if row.get("is_published") else row.update({"is_published": "Draft"})
             for index in range(len(row)):
                 row_data["column" + (str(index + 1))] = str(row.get(self.select_cols[index]))
