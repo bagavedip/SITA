@@ -16,9 +16,7 @@ class PerspectiveGridSerializer:
         self.end_date = request_data.get('toDate')
         self.dropdownFilters = request_data.get("dropdownFilters")
         self.filters = {}
-        format = "%Y-%m-%d %H:%M:%S.%f%z"
         self.actual_end_time = self.end_date + " 23:59:59"
-        # self.time_change = datetime.timedelta(hours=23, minutes=59, seconds=59)
         self.filters['updated_at__gte'] = self.start_date
         self.filters['updated_at__lte'] = self.actual_end_time
 
