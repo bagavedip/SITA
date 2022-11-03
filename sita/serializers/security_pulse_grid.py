@@ -11,6 +11,13 @@ class SecurityPulseGridSerializer:
 
         request_data = request.data
 
+        self.start_date = request_data.get('fromDate')
+        self.end_date = request_data.get('toDate')
+        self.dropdownFilters = request_data.get("dropdownFilters")
+        self.filters = {}
+        self.filters['updated_at__gte'] = self.start_date
+        self.filters['updated_at__lte'] = self.end_date
+
         self.columns_headers = []
         self.select_cols = []
         for key in security_pulse_constants.SECURITY_PULSE_TABLE_HEADER.keys():
@@ -33,7 +40,7 @@ class SecurityPulseGridSerializer:
         for row in data:
             row_data = {}
             None if row.get("selected_assets") is None else row.update({"selected_assets": ", ".join(row.get("selected_assets"))})
-            None if row.get("created_at") is None else row.update({"created_at": row.get("created_at").strftime("%m-%d-%Y")})
+            None if row.get("updated_at") is None else row.update({"updated_at": row.get("updated_at").strftime("%m-%d-%Y")})
             row.update({"is_published": "Publish"}) if row.get("is_published") else row.update({"is_published": "Draft"})
             a = row.get("created_by")
             number = row.get("id")

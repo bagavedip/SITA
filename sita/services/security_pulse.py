@@ -1,6 +1,8 @@
 import logging
+from operator import itemgetter
 
 from django.core.files.base import ContentFile
+from django.db.models import Q
 from django.utils import timezone
 
 from sita.models.security_pulse import SecurityPulse
@@ -75,8 +77,10 @@ class SecurityPulseService:
         """
         Function which fetches security pulse grid
         """
-        query_data = SecurityPulse.objects.all().values(*response_obj.select_cols)
-        query_data = reversed(query_data)
+        filter_q = Q(**response_obj.filters)
+        query_data = SecurityPulse.objects.filter(filter_q).values(*response_obj.select_cols)
+        # query_data = reversed(query_data)
+        query_data = sorted(query_data,key=itemgetter('updated_at'),reverse=True)
         return query_data
 
     @staticmethod
