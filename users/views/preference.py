@@ -48,7 +48,7 @@ class PreferenceViewSet(viewsets.GenericViewSet):
         """
         try:
             logger.debug(f"Parsed request body {request.data}")
-            queryset = Preference.objects.filter(user=request.user.id).values("user","session")
+            queryset = Preference.objects.filter(user=request.user.id).values("user", "session")
             query = queryset[0]
 
             return Response(query)

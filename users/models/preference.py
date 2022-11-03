@@ -21,4 +21,4 @@ class Preference(models.Model):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self):
-        return self.user + "preference"
+        return self.user

@@ -12,11 +12,11 @@ class UserSerializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=256, required=False)
     last_name = serializers.CharField(max_length=256, required=False)
     is_admin = serializers.BooleanField(required=True)
-    role_id = serializers.IntegerField(source='role_id.id',required = False)
-    role = serializers.CharField(source='role_id.name',required = False)
+    role_id = serializers.IntegerField(source='role_id.id', required=False)
+    role = serializers.CharField(source='role_id.name', required=False)
     phone_code = serializers.CharField(max_length=10, required=False)
     phone_number = serializers.CharField(max_length=20, required=False)
-    # profile_photo = None if bool(serializers.FileField) is False else serializers.FileField.read()
+
     class Meta:
         fields = "__all__"
 
@@ -101,6 +101,7 @@ class UserUpdateSerializer(serializers.Serializer):
     class Meta:
         fields = "__all__"
 
+
 class PasswordUpdateSerializer(serializers.Serializer):
     """
     Serializer for updating password
@@ -110,4 +111,3 @@ class PasswordUpdateSerializer(serializers.Serializer):
 
     class Meta:
         fields = "__all__"
-

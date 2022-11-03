@@ -1,5 +1,4 @@
-import logging
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import send_mail
 from django.conf import settings
 import datetime
 from cryptography.fernet import Fernet
@@ -9,46 +8,46 @@ from django.utils.html import strip_tags
 from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
 from users.models import User
-from users.serializers.user import UserUpdateSerializer
 
-from users.services.user import UserService
 
 class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
-
+    """
+    Function for sending mail for forget password
+    """
     def sent_mail(self, request):
         """
         Function for sending the mail for forget password
         """
         try:
-            reciever = request.data['email']
-            query = User.objects.all().filter(email__iexact = reciever)
+            receiver = request.data['email']
+            query = User.objects.all().filter(email__iexact=receiver)
             key = Fernet.generate_key()
             fernet = Fernet(key)
-            nowtime = datetime.datetime.now()
-            strnowtime = nowtime.strftime('%m/%d/%y %H:%M')
-            encMessage = fernet.encrypt(strnowtime.encode())
+            now_time = datetime.datetime.now()
+            strnowtime = now_time.strftime('%m/%d/%y %H:%M')
+            enc_message = fernet.encrypt(strnowtime.encode())
             if query:
-                User.objects.all().filter(email__iexact=reciever).update(key=key)
-                key = User.objects.filter(email__iexact=reciever).values('key')
+                User.objects.all().filter(email__iexact=receiver).update(key=key)
+                key = User.objects.filter(email__iexact=receiver).values('key')
                 for q in query:
                     id = q.id
                     first_name = q.first_name
                 subject = "Forget Password Link"
-                message = (f"http://devsita.netrum-tech.com/forget_password/{id}@{encMessage}")
+                message = f"http://devsita.netrum-tech.com/forget_password/{id}@{enc_message}"
                 email_from = settings.EMAIL_HOST_USER
-                email_reciever = [reciever]
+                email_receiver = [receiver]
                 html_message = render_to_string("email_template.html", {'link': message, "name": first_name})
                 text_content = strip_tags(html_message)
 
                 send_mail(subject,
                           text_content,
                           email_from,
-                          email_reciever,
+                          email_receiver,
                           html_message=html_message)
-                data={
+                data = {
                     "Status": "SUCCESS",
-                    "Messages" : message,
-                    "Message" : "Mail Successfully sent"
+                    "Messages": message,
+                    "Message": "Mail Successfully sent"
                 }
                 return Response(
                     {
@@ -56,13 +55,13 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
                     }
                 )
         except Exception as e:
-            data={
-                "Status" : status.HTTP_400_BAD_REQUEST,
+            data = {
+                "Status": status.HTTP_400_BAD_REQUEST,
                 "Message": f"{e}"
             }
             return Response(
                 {
-                "Data":data
+                    "Data": data
                 }
             )
 
@@ -71,11 +70,11 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
         Function for decrypting hashcode of send mail
         """
         try:
-            requesttoken = request.data['token']
-            id = requesttoken.split("@")[0]
-            token = requesttoken.split("@")[1]
+            request_token = request.data['token']
+            id = request_token.split("@")[0]
+            token = request_token.split("@")[1]
             new = token.split("'")[1]
-            bytetoken = new.encode('utf-8')
+            byte_token = new.encode('utf-8')
             user = User.objects.all().filter(id=id)
             
             for q in user:
@@ -86,8 +85,8 @@ class UserSentMail(mixins.CreateModelMixin, viewsets.GenericViewSet):
             if user_key:
                 key = user_key
                 fernet = Fernet(key)
-                decMessage = fernet.decrypt(token=bytetoken).decode()
-                newdatetime = datetime.datetime.strptime(decMessage, format('%m/%d/%y %H:%M'))
+                dec_message = fernet.decrypt(token=byte_token).decode()
+                newdatetime = datetime.datetime.strptime(dec_message, format('%m/%d/%y %H:%M'))
                 current_time = datetime.datetime.now()
                 backcurrenttime = current_time - datetime.timedelta(minutes=30)
                 if newdatetime > backcurrenttime:

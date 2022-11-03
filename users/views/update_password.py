@@ -11,8 +11,11 @@ from users.serializers.user import PasswordUpdateSerializer
 
 logger = logging.getLogger(__name__)
 
-class PasswordUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
+class PasswordUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    Function for updating User Password
+    """
     permission_classes = [IsAuthenticated]
 
     def update_password(self, request):
@@ -21,33 +24,33 @@ class PasswordUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
         """
         request_user = request.data
         request_data = {
-            "email":request_user["email"],
-            "oldPassword":request_user["oldPassword"],
-            "password":request_user["newPassword"]
+            "email": request_user["email"],
+            "oldPassword": request_user["oldPassword"],
+            "password": request_user["newPassword"]
             }
-        serializer = PasswordUpdateSerializer(data = request_data)
+        serializer = PasswordUpdateSerializer(data=request_data)
         serializer.is_valid(raise_exception=True)
         validated_data = serializer.validated_data
         with transaction.atomic():
             password = make_password(validated_data["password"])
             if serializer.is_valid():
-                updated_user = User.objects.get(email = validated_data["email"])
+                updated_user = User.objects.get(email=validated_data["email"])
                 if not updated_user.check_password(request_user["oldPassword"]):
                     logger.error("Password verification failed.")
                     raise AuthenticationFailed
-                updated_user.password  = password
+                updated_user.password = password
                 updated_user.save()
                 return Response(
                     {
-                    "status":"SUCCESS",
-                    "message": "Password Reset Successfully!!"
+                        "status": "SUCCESS",
+                        "message": "Password Reset Successfully!!"
                     }
                 )
             else:
                 return Response(
                     {
-                    "Data":serializer.data, 
-                    "status":"FAIL",
-                    "message": "Oops! Something went wrong."
+                        "Data": serializer.data,
+                        "status": status.HTTP_400_BAD_REQUEST,
+                        "message": "Oops! Something went wrong."
                     }
                 )

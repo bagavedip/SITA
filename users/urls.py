@@ -15,7 +15,7 @@ update_user = UserUpdate.as_view({"post": "update_name"})
 update_user_password = PasswordUpdate.as_view({"post": "update_password"})
 sent_mail = UserSentMail.as_view({"post": "sent_mail"})
 session_check = UserSentMail.as_view({"post": "decrypt_hashcode"})
-reset_password = PasswordReset.as_view({"post":"reset_password"})
+reset_password = PasswordReset.as_view({"post": "reset_password"})
 
 preference_input = PreferenceViewSet.as_view({"post": "preference_input"})
 preference_fetch = PreferenceViewSet.as_view({"post": "preference_fetch"})

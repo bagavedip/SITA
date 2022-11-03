@@ -55,4 +55,3 @@ class UserService:
             return queryset
         except User.DoesNotExist:
             return None
-
