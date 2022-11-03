@@ -141,7 +141,7 @@ class InsightsSerializer:
                 if '-' in item['name']:
                     id = item['name'].split("-")[0]
                 backgroundColor.append(ColorMap.get_color(self.datasets[0]['label'], id))
-                dataLabelColor = ColorMap.get_color(self.datasets[0]['label'],id)
+                dataLabelColor = ColorMap.get_color(self.datasets[0]['label'], id)
         self.datasets[0]['data'] = data
         self.datasets[0]['originalData'] = originalData
         self.datasets[0]['hierarchy'] = hierarchy
@@ -175,7 +175,7 @@ class InsightsSerializer:
                     if '-' in child_item['name']:
                         id = child_item['name'].split("-")[0]
                     backgroundColor.append(ColorMap.get_color(self.datasets[1]['label'], id))
-                    dataLabelColor = ColorMap.get_color(self.datasets[1]['label'],id)
+                    dataLabelColor = ColorMap.get_color(self.datasets[1]['label'], id)
         self.datasets[1]['data'] = data
         self.datasets[1]['originalData'] = originalData
         self.datasets[1]['hierarchy'] = hierarchy
@@ -217,7 +217,7 @@ class InsightsSerializer:
                         if '-' in child2_item['name']:
                             id = child2_item['name'].split("-")[0]
                         backgroundColor.append(ColorMap.get_color(self.datasets[2]['label'], id))
-                        dataLabelColor = ColorMap.get_color(self.datasets[2]['label'],id)
+                        dataLabelColor = ColorMap.get_color(self.datasets[2]['label'], id)
         self.datasets[2]['data'] = data
         self.datasets[2]['originalData'] = originalData
         self.datasets[2]['hierarchy'] = hierarchy
@@ -265,7 +265,7 @@ class InsightsSerializer:
                             if '-' in child3_item['name']:
                                 id = child2_item['name'].split("-")[0]
                             backgroundColor.append(ColorMap.get_color(self.datasets[3]['label'], id))
-                            dataLabelColor = ColorMap.get_color(self.datasets[3]['label'],id)
+                            dataLabelColor = ColorMap.get_color(self.datasets[3]['label'], id)
         self.datasets[3]['data'] = data
         self.datasets[3]['originalData'] = originalData
         self.datasets[3]['hierarchy'] = hierarchy

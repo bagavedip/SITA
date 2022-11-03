@@ -95,7 +95,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
         try:
             Total_modes = []
             for mode in self.queryset.values():
-                    Total_modes.append(mode.get('Request_mode'))
+                Total_modes.append(mode.get('Request_mode'))
             # Created blank dict, added asset_type wise count in blank dict
             mode_types = dict()  
             for modes in Total_modes:
@@ -144,20 +144,20 @@ class ITSMViewSet(viewsets.ModelViewSet):
                         "label": "Reopened"
                     }]
         for category in categories:
-            new_category = {"value":category,
-                        "label":category}
+            new_category = {"value": category,
+                            "label": category}
             category_dropdown.append(new_category)
         for priority in priorities:
-            new_priority = {"value":priority,
-                        "label":priority}
+            new_priority = {"value": priority,
+                            "label": priority}
             priority_dropdown.append(new_priority)
         for s in statuses:
-            new_status = {"value":s,
-                        "label":s}
+            new_status = {"value": s,
+                          "label": s}
             status_dropdown.append(new_status)
         for reopen in reopened:
-            new_reopened = {"value":reopen,
-                        "label":reopen}
+            new_reopened = {"value": reopen,
+                            "label": reopen}
             reopened_dropdown.append(new_reopened)
         
         response = [
@@ -173,34 +173,36 @@ class ITSMViewSet(viewsets.ModelViewSet):
                     "id": "Status",
                     "dropdownoption": status_dropdown
                 }, {
-                "id": "Service",
-                "dropdownoption": [
-                    {
-                        "value": "Select",
-                        "label": "Service"
+                    "id": "Service",
+                    "dropdownoption": [
+                            {
+                                "value": "Select",
+                                "label": "Service"
+                            },
+                            {
+                                "label": "SOC",
+                                "value": "SOC"
+                            }
+                        ]
                     },
-                    {
-                        "label": "SOC",
-                        "value": "SOC"
-                    }
-                ]
-            }, {
-                "id": "Reopened %",
-                "dropdownoption": reopened_dropdown
-            }, {
-                "id": "First response Time",
-                "dropdownoption": [
-                    {
-                        "value": "Select",
-                        "label": "First response Time"
-                    },
-                    {
-                        "label": "All",
-                        "value": "All"
-                    }
-                ]
-            }
-        ]
+                {
+                    "id": "Reopened %",
+                    "dropdownoption": reopened_dropdown
+                },
+                {
+                    "id": "First response Time",
+                    "dropdownoption": [
+                        {
+                            "value": "Select",
+                            "label": "First response Time"
+                        },
+                        {
+                            "label": "All",
+                            "value": "All"
+                        }
+                    ]
+                }
+            ]
 
         return Response(response, status=status.HTTP_201_CREATED)
 
@@ -251,12 +253,12 @@ class ITSMViewSet(viewsets.ModelViewSet):
         serializser = OeiSerializer(request)
         result = ITSMService.get_oei(serializser)
         hirarchial_data = self.convert_data(result)
-        if len(serializser.datasets) !=1:
+        if len(serializser.datasets) != 1:
             self.update_events(hirarchial_data)
         query_data = FACT_OEI.objects.filter(CreatedTime__gte=serializser.start_date,
                                              Ending_time__lte=serializser.end_date).count()
         data = FACT_OEI.objects.filter(CreatedTime__gte=serializser.start_date,
-                                       Ending_time__lte=serializser.end_date,is_overdue='1').count()
+                                       Ending_time__lte=serializser.end_date, is_overdue='1').count()
         total_ticket = query_data
         legends = []
         if total_ticket == 0:
@@ -267,7 +269,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
             final_response = {
                 "charFooter": {
                     "label": "SLA  Compliance",
-                    "value": str((Compliance)) + "%",
+                    "value": str(Compliance) + "%",
                     "valueFontColor": "green"
                 },
                 "legends": {

@@ -51,4 +51,3 @@ class PerspectiveUpdateSerializer(serializers.ModelSerializer):
             "incident_start_date_time",
             "incident_end_date_time",
         )
-

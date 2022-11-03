@@ -6,7 +6,7 @@ from sita.models import HubUpdate
 from sita.models.add_comment import AddComment
 from sita.models.assign_task import AssignTask
 from sita.models.fact_insights import FACT_INSIGHTS
-from django.db.models import Sum, Count
+from django.db.models import Count
 
 from sita.serializers.insights import InsightsSerializer
 from sita.serializers.Insights_timeline import InsightsTimeline
@@ -82,12 +82,12 @@ class HubService:
         entity_count = str(entityes)
         assets = assets + " :" + str(asset_names)
         for query in data:
-            incident_status = {"text": query.status,"color": "#ffc107"}
+            incident_status = {"text": query.status, "color": "#ffc107"}
             time_to_close = (query.assigned_time - query.starttime)
             time = int(abs(time_to_close).total_seconds() / 3600)
-            time_to_close = {"cardTitle": str(time) + " Hrs","textColor": "#ffc107","cardSubTitle": "Time to close",
+            time_to_close = {"cardTitle": str(time) + " Hrs", "textColor": "#ffc107", "cardSubTitle": "Time to close",
                              "cardIcon": "OrangeWait"}
-            suspicious = {"cardTitle": query.Suspicious,"textColor": "#ffc107","cardSubTitle": "Expected closure",
+            suspicious = {"cardTitle": query.Suspicious, "textColor": "#ffc107", "cardSubTitle": "Expected closure",
                           "cardIcon": "OrangeChartLineUp"}
             if query.priority == "2. Alta":
                 priority = "RED"
@@ -101,9 +101,9 @@ class HubService:
                 priority = "Orange"
                 color = "#FFA500"
                 card_icon = "OrangeCaution"
-            tread_level = {"cardTitle": priority,"textColor": color,"cardSubTitle": "Threat Level",
+            tread_level = {"cardTitle": priority, "textColor": color, "cardSubTitle": "Threat Level",
                            "cardIcon": card_icon}
-            card = [tread_level,time_to_close,suspicious]
+            card = [tread_level, time_to_close, suspicious]
             incident_details = {"title": "INCIDENT DETAILS",
                                 "description": "ITSM Case: " + query.itsm_id + "\n SOAR ID:" + query.soar_id,
                                 }
@@ -180,10 +180,10 @@ class HubService:
         for filter_data in response.header_filters:
             header_filter = filter_data
         filters = ("Time-line view of " + request_filter + " - " + header_filter)
-        start_time = datetime.strptime(response.start_date,'%Y-%m-%d')
-        end_time = datetime.strptime(response.end_date,'%Y-%m-%d')
+        start_time = datetime.strptime(response.start_date, '%Y-%m-%d')
+        end_time = datetime.strptime(response.end_date, '%Y-%m-%d')
         total_days = int((end_time - start_time).days)
-        delta = relativedelta.relativedelta(end_time,start_time)
+        delta = relativedelta.relativedelta(end_time, start_time)
         start_date = start_time
         incidents = []
         time = []
@@ -191,10 +191,10 @@ class HubService:
         if total_days <= 31:
             title1 = calendar.month_name[start_date.month] + str(start_date.day)
             title2 = calendar.month_name[end_time.month] + str(end_time.day)
-            for x in range(0,total_days + 1):
+            for x in range(0, total_days + 1):
                 query = (
-                    FACT_INSIGHTS.objects.filter(starttime__gte=start_date,starttime__lte=start_date + timedelta(days=1),
-                                       endtime__lte=end_time).count()
+                    FACT_INSIGHTS.objects.filter(starttime__gte=start_date, starttime__lte=start_date + timedelta(days=1),
+                                                 endtime__lte=end_time).count()
                 )
                 incidents.append(query)
                 time.append(calendar.month_name[start_date.month] + str(start_date.day))
@@ -204,11 +204,11 @@ class HubService:
                 delta.months += 1
             title1 = calendar.month_name[start_date.month] + str(start_date.year)
             title2 = calendar.month_name[end_time.month] + str(end_time.year)
-            for x in range(0,delta.months):
+            for x in range(0, delta.months):
                 query = (
                     FACT_INSIGHTS.objects.filter(starttime__gte=start_date,
-                                       starttime__lte=start_date + relativedelta.relativedelta(months=1),
-                                       endtime__lte=end_time).count())
+                                                 starttime__lte=start_date + relativedelta.relativedelta(months=1),
+                                                 endtime__lte=end_time).count())
                 incidents.append(query)
                 time.append(calendar.month_name[start_date.month])
                 start_date = start_date + relativedelta.relativedelta(months=1)
@@ -219,11 +219,11 @@ class HubService:
                 delta.years += 1
             title1 = start_date.year
             title2 = end_time.year
-            for x in range(1,delta.years):
+            for x in range(1, delta.years):
                 query = (
                     FACT_INSIGHTS.objects.filter(starttime__gte=start_date,
-                                       starttime__lte=start_date + relativedelta.relativedelta(years=1),
-                                       endtime__lte=end_time).count())
+                                                 starttime__lte=start_date + relativedelta.relativedelta(years=1),
+                                                 endtime__lte=end_time).count())
                 time.append(start_date.year)
                 incidents.append(query)
                 start_date = start_date + relativedelta.relativedelta(years=1)
@@ -313,10 +313,9 @@ class HubService:
         Function for adding update to soar id
         """
         update = HubUpdate(
-            soar_id= soar_id,
-            updates = update,
-            updated_by = update_by
+            soar_id=soar_id,
+            updates=update,
+            updated_by=update_by
         )
         update.save()
         return "Update Added Successfully !!"
-

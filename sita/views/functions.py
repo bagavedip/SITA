@@ -149,7 +149,7 @@ class FunctionViewSet(viewsets.ModelViewSet):
         try:
             id = request.query_params["id"]
             if id != None:
-                queryset = FunctionService.get_queryset().filter(end_date__isnull = True).select_related('location_id',
+                queryset = FunctionService.get_queryset().filter(end_date__isnull=True).select_related('location_id',
                                                                          'location_id__entity_id').filter(id=id)
                 dataset = []
                 for functions in queryset:
@@ -224,7 +224,7 @@ class FunctionViewSet(viewsets.ModelViewSet):
          function to delete function
         """
         logger.info(f"request data is {request.data}")
-        process_queryset = ProcessService.get_queryset.filter(function_id = function_id)
+        process_queryset = ProcessService.get_queryset.filter(function_id=function_id)
         if process_queryset:
             message = f"Process is connected to this Function {function_id}"
             Status = status.HTTP_405_METHOD_NOT_ALLOWED

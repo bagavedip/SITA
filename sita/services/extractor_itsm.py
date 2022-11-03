@@ -5,6 +5,9 @@ from sita.models.extractor_itsm import EXTRACTOR_ITSM
 
 
 class ITSMServices:
+    """
+    Function used to Extract ITSM data
+    """
     @staticmethod
     def double_nested_data(data, key1, key2):
         """

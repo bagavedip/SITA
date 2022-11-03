@@ -20,7 +20,7 @@ class TicketDetailsSerializer:
         for filter_str in filter_arr:
             filter = filter_str.split("*")[0].split("~")[0]
             filter_key_val = filter.split("=")
-            if request_data.get("selectedOption") =='Tickets':
+            if request_data.get("selectedOption") == 'Tickets':
                 for childfilters in request_data.get("selectedFilter"):
                     if childfilters == 'First_Response_Time':
                         self.filters[filter_key_val[0]] = filter_key_val[1]
@@ -56,7 +56,7 @@ class TicketDetailsSerializer:
                 if len(str(row.get(self.select_cols[index])).split()) > 10:
                     details = list(str(row.get(self.select_cols[index])).split())
                     for i in range(15):
-                        newstring = newstring +" "+ details[i]
+                        newstring = newstring + " " + details[i]
                     row_data["column" + (str(index + 1))] = newstring + "..."
                 else: 
                     row_data["column" + (str(index + 1))] = str(row.get(self.select_cols[index]))

@@ -1,6 +1,6 @@
 from datetime import datetime
-from sita.models import EXTRACTOR_SOAR,STG_SOAR,EXTRACTOR_ITSM,EXTRACTOR_SIEM,STG_SIEM,FACT_OEI,Audit_SOAR_EXTRACTOR, \
-    Audit_SIEM_EXTRACTOR,Audit_ITSM_EXTRACTOR
+from sita.models import EXTRACTOR_SOAR, STG_SOAR, EXTRACTOR_ITSM, EXTRACTOR_SIEM, STG_SIEM, FACT_OEI, \
+    Audit_SOAR_EXTRACTOR, Audit_SIEM_EXTRACTOR, Audit_ITSM_EXTRACTOR
 from sita.models.audit_siem_stg import Audit_SIEM_STG
 from sita.models.audit_soar_stg import Audit_SOAR_STG
 from sita.models.audit_itsm_stg import Audit_ITSM_STG

@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from sita.models.cy_feeds import CyFeeds
 
+
 class Cy_FeedsService:
     """
     Service for handling cy feeds
@@ -16,19 +17,19 @@ class Cy_FeedsService:
 
         #using for loop to store the data
         for data in query_data:
-            urls=[]
+            urls = []
             url = data.informationSource_references_references
-            url = url.strip("[").strip("]").replace("'","")
+            url = url.strip("[").strip("]").replace("'", "")
             urls = url.split(",")
             
             new_feed = {
-            "title": data.title,
-            "description" :data.descriptions,
-            "iconclass" :"fa fa-newspaper-o",
-            "linkurls" : urls 
+                "title": data.title,
+                "description": data.descriptions,
+                "iconclass": "fa fa-newspaper-o",
+                "linkurls": urls
             }
             feeds.append(new_feed)
         return Response({
-            "FeedHeader":"CY Firma",
+            "FeedHeader": "CY Firma",
             "Feeds": feeds
         })

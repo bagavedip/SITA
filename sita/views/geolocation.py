@@ -29,7 +29,7 @@ class GeoLocationViewSet(viewsets.ModelViewSet):
          function to get details of geo_location
         """
         logger.info(f"request data is {request.data}")
-        queryset = GeoLocationService.get_queryset().filter(end_date__isnull = True).select_related('entity_id')
+        queryset = GeoLocationService.get_queryset().filter(end_date__isnull=True).select_related('entity_id')
         dataset = []
         for location in queryset:
             data = {
@@ -219,7 +219,7 @@ class GeoLocationViewSet(viewsets.ModelViewSet):
          function to delete details of location
         """
         logger.info(f"request data is {request.data}")
-        function_queryset = FunctionService.get_queryset().filter(location_id = location_id)
+        function_queryset = FunctionService.get_queryset().filter(location_id=location_id)
         if function_queryset:
             message = f"Function is connected to this Location {location_id}"
             Status = status.HTTP_405_METHOD_NOT_ALLOWED

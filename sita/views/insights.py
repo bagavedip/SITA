@@ -176,7 +176,7 @@ class InsightHub(viewsets.GenericViewSet):
         geo_dropdown = [{
                         "value": "Select",
                         "label": "Geo"
-                    }]
+                        }]
         entities = FACT_INSIGHTS.objects.values_list('entity_name').distinct()
         entity_dropdown = [{
                         "value": "Select",
@@ -184,21 +184,21 @@ class InsightHub(viewsets.GenericViewSet):
                     }]
         for asset_type in asset_types:
             new_asset = {
-                "value":asset_type,
-                "label":asset_type
+                "value": asset_type,
+                "label": asset_type
             }
             
             asset_dropdown.append(new_asset)
         for geos in geo:
             new_geo = {
-                "value":geos,
-                "label":geos
+                "value": geos,
+                "label": geos
             }
             geo_dropdown.append(new_geo)
         for entity in entities:
             new_entity = {
-                "value":entity,
-                "label":entity
+                "value": entity,
+                "label": entity
             }
             entity_dropdown.append(new_entity)
         response = [
@@ -298,7 +298,7 @@ class InsightHub(viewsets.GenericViewSet):
                 soar_id = serializer.get("incident")
                 update = serializer.get("update")
                 update_by = serializer.get("update_by")
-                updates = HubService.add_update(soar_id,update,update_by)
+                updates = HubService.add_update(soar_id, update, update_by)
             logger.debug("Database transaction finished")
 
             # response formatting

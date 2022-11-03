@@ -47,4 +47,3 @@ class Dataset:
             hierarchy_dict_2['child'] = hierarchy_dict_3
             hierarchy_dict['child'] = hierarchy_dict_2
         return hierarchy_dict
-

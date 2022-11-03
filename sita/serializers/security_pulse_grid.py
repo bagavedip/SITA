@@ -2,6 +2,7 @@ from sita.constants import security_pulse_constants
 
 from sita.models.security_pulse import SecurityPulse
 
+
 class SecurityPulseGridSerializer:
     """
      Serializer for Ticket Details for Insights(Hub)

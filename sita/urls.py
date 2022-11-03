@@ -4,7 +4,6 @@ from rest_framework import routers
 from .views.assign_task import AssignTaskViewset
 from .views.cy_feeds import CyFeeds
 from .views.dashboard import DashboardViewSet
-from .views.extractor import Extractor
 from .views.insights import InsightHub
 from .views.perspective import PerspectiveViewSet
 from .views.process import ProcessViewSet

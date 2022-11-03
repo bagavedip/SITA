@@ -140,7 +140,7 @@ class CategoryViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
          Function is used to delete category
         """
         logger.info(f"requested data is{request.data}")
-        asset_queryset = AssetService.get_queryset.filter(category = category_id)
+        asset_queryset = AssetService.get_queryset.filter(category=category_id)
         if asset_queryset:
             message = f"Asset is connected to this Category {category_id}"
             Status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -165,7 +165,7 @@ class CategoryViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
          Function used to get details of category
         """
         logger.info(f"requested data is{request.data}")
-        queryset = CategoryService.get_queryset().filter(end_date__isnull = True)
+        queryset = CategoryService.get_queryset().filter(end_date__isnull=True)
         queryset_details = []
         for data in queryset:
             query_data = ({

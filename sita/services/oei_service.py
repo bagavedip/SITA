@@ -64,12 +64,12 @@ class ITSMService:
         data = ITSMService.get_queryset().filter(SIEM_id=ticket)
         updates = HubUpdate.objects.all().filter(soar_id=ticket).order_by('-update_date')[:6]
         assets = str(data.count())
-        asset_names =[]
-        request_status={}
-        card=[]
-        incident_details={}
-        resolution_status={}
-        other_details={}
+        asset_names = []
+        request_status = {}
+        card = []
+        incident_details = {}
+        resolution_status = {}
+        other_details = {}
         for query in data:
             asset_names.append(query.Asset_Name)
             request_status = {"text": query.Subject + " " + query.SIEM_id, "color": "#ffc107"}
@@ -119,7 +119,7 @@ class ITSMService:
                     "isEditable": "true"
                 }
             }
-        assets_name = assets +":"+ str(asset_names)
+        assets_name = assets + ":" + str(asset_names)
         details = [{
             "subTitle": "Assets Affected",
             "value": assets_name,
@@ -148,11 +148,11 @@ class ITSMService:
         ]
         other_details = {"title": "OTHER DETAILS",
                          "details": details}
-        updated_data=[]
+        updated_data = []
         for data in updates:
             last_updates = {
-                "updateDateTime":data.update_date,
-                "description":data.updates
+                "updateDateTime": data.update_date,
+                "description": data.updates
             }
             updated_data.append(last_updates)
         updates = {

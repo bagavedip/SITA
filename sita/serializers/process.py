@@ -15,4 +15,3 @@ class ProcessSerializer(serializers.ModelSerializer):
             "process",
             "function_name",
         )
-

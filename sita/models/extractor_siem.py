@@ -7,8 +7,8 @@ class EXTRACTOR_SIEM(models.Model):
     Model to hold data for SIEM data
     """
 
-    last_persisted_time = models.CharField(_("last_persisted_time"),  max_length=10000, null=True, 
-                                               help_text=_("last_persisted_time"))
+    last_persisted_time = models.CharField(_("last_persisted_time"),  max_length=10000, null=True,
+                                           help_text=_("last_persisted_time"))
     username_count = models.CharField(_("username_count"), max_length=10000, null=True, 
                                       help_text=_("username_count"))
     description = models.CharField(_("description"), max_length=10000, null=True, 
@@ -41,16 +41,16 @@ class EXTRACTOR_SIEM(models.Model):
                                       help_text=_("source_network"))
     category_count = models.CharField(_("category_count"), max_length=10000, null=True, 
                                       help_text=_("category_count"))
-    close_time = models.CharField(_("close_time"), max_length=10000, null=True, 
-                                      help_text=_("close_time"))
+    close_time = models.CharField(_("close_time"), max_length=10000, null=True,
+                                  help_text=_("close_time"))
     remote_destination_count = models.CharField(_("remote_destination_count"), max_length=10000, null=True, 
                                                 help_text=_("remote_destination_count"))
-    start_time = models.CharField(_("start_time"), max_length=10000, null=True, 
-                                      help_text=_("start_time"))
+    start_time = models.CharField(_("start_time"), max_length=10000, null=True,
+                                  help_text=_("start_time"))
     magnitude = models.CharField(_("magnitude"), max_length=10000, null=True, 
                                  help_text=_("magnitude"))
-    last_updated_time = models.CharField(_("last_updated_time"), max_length=10000, null=True, 
-                                             help_text=_("last_updated_time"))
+    last_updated_time = models.CharField(_("last_updated_time"), max_length=10000, null=True,
+                                         help_text=_("last_updated_time"))
     credibility = models.CharField(_("credibility"), max_length=10000, null=True, 
                                    help_text=_("credibility"))
     siem_id = models.CharField(_("id"), max_length=10000, null=True, 
@@ -67,8 +67,8 @@ class EXTRACTOR_SIEM(models.Model):
                                          help_text=_("closing_reason_id"))
     device_count = models.CharField(_("device_count"), max_length=10000, null=True, 
                                     help_text=_("device_count"))
-    first_persisted_time = models.CharField(_("first_persisted_time"), max_length=10000, null=True, 
-                                                help_text=_("first_persisted_time"))
+    first_persisted_time = models.CharField(_("first_persisted_time"), max_length=10000, null=True,
+                                            help_text=_("first_persisted_time"))
     offense_type = models.CharField(_("offense_type"), max_length=10000, null=True, 
                                     help_text=_("offense_type"))
     relevance = models.CharField(_("relevance"), max_length=10000, null=True, 

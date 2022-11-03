@@ -21,7 +21,7 @@ class Assets(models.Model):
     criticality = models.CharField(_("criticality"), max_length=100, choices=Criticalities.choices,
                                    default="Low", help_text=_("Criticality"))
     process_id = models.ForeignKey(Process, verbose_name=_("process_id"), on_delete=models.CASCADE,
-                                    help_text=_("Process Name"))
+                                   help_text=_("Process Name"))
     created = models.DateField(_("created"), null=True, auto_now_add=True, help_text=_("created"))
     end_date = models.DateField(_("end_date"), null=True, help_text=_("Delete Date"))
 

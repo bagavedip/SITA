@@ -163,8 +163,9 @@ class AssetViewSet(viewsets.ModelViewSet):
          Function returns asset record.
         """
         logger.info(f"request data is{request.data}")
-        queryset = AssetService.get_queryset().filter(end_date__isnull = True).select_related('process_id', 'process_id__function_id','process_id__function_id__location_id',
-                                                              'process_id__function_id__location_id__entity_id')
+        queryset = AssetService.get_queryset().filter(end_date__isnull=True).select_related('process_id', 'process_id__function_id',
+                                                                                            'process_id__function_id__location_id',
+                                                                                            'process_id__function_id__location_id__entity_id')
         total_assets = []
         for asset in queryset:
             data = ({
@@ -192,7 +193,7 @@ class AssetViewSet(viewsets.ModelViewSet):
          Function used for details of single asset
         """
         logger.info(f"request data is{request.data}")
-        queryset = AssetService.get_queryset().filter(id=asset_id).select_related('category', "process_id",'process_id__function_id',
+        queryset = AssetService.get_queryset().filter(id=asset_id).select_related('category', "process_id", 'process_id__function_id',
                                                                                   'process_id__function_id__location_id',
                                                                                   'process_id__function_id__location_id__entity_id')
         Total_assets = []

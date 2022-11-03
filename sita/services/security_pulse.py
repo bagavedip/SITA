@@ -15,18 +15,18 @@ class SecurityPulseService:
     Service for Security Pulse model
     """
     @staticmethod
-    def update(asset,**kwargs):
+    def update(asset, **kwargs):
         """
         Function update an asset from kwargs
         """
-        for key,value in kwargs.items():
-            setattr(asset,key,value)
+        for key, value in kwargs.items():
+            setattr(asset, key, value)
         asset.save()
 
         return asset
 
     @staticmethod
-    def create_from_validated_data(user,validated_data):
+    def create_from_validated_data(user, validated_data):
         """
         Function for creating security pulse with validated data
         """
@@ -59,7 +59,7 @@ class SecurityPulseService:
             for section in sections:
                 image_data = section.get("imageData")
                 image_data_name = section.get("imageDataName")
-                image = None if image_data is None else ContentFile(image_data,name=image_data_name)
+                image = None if image_data is None else ContentFile(image_data, name=image_data_name)
                 info = section.get("info")
                 security_pulse_image_kwargs = {
                     "image_data": image,
@@ -126,7 +126,7 @@ class SecurityPulseService:
             for section in sections:
                 image_data = section.get("imageData")
                 image_data_name = section.get("imageDataName")
-                image = None if image_data is None else ContentFile(image_data,name=image_data_name)
+                image = None if image_data is None else ContentFile(image_data, name=image_data_name)
                 info = section.get("info")
                 security_pulse_image_kwargs = {
                     "image_data": image,

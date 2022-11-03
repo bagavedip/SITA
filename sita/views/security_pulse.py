@@ -1,7 +1,7 @@
 import logging
 
 from django.db import transaction
-from rest_framework import viewsets,status
+from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -14,10 +14,16 @@ logger = logging.getLogger(__name__)
 
 
 class SecurityPulseViewSet(viewsets.GenericViewSet):
+    """
+    Function for handling Security Pulse views
+    """
 
     permission_classes = [IsAuthenticated]
 
     def add_security_pulse_record(self, request):
+        """
+        Function for adding security pulse record
+        """
         try:
             logger.info("Validating data for Log In.")
             validated_data = request.data
@@ -70,7 +76,7 @@ class SecurityPulseViewSet(viewsets.GenericViewSet):
             data = SecurityPulseService.security_pulse_grid(response_obj)
             return Response(response_obj.get_response(data), status=status.HTTP_200_OK)
         except Exception as e:
-            response_data = f"e"
+            response_data = f"{e}"
         return Response({"message": response_data, "status": "error"})
 
     def edit_security_pulse_record_submit(self, request):

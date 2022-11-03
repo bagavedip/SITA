@@ -97,7 +97,6 @@ class PerspectiveService:
         ]
         return response
 
-
     @staticmethod
     def create_from_validated_data(user, validated_data):
         """

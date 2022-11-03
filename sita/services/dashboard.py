@@ -18,7 +18,7 @@ class DashboardService:
         # using for loop to store the data
         for data in cyfeed:
             url = data.informationSource_references_references
-            url = url.strip("[").strip("]").replace("'","")
+            url = url.strip("[").strip("]").replace("'", "")
             urls = url.split(",")
 
             new_feed = {

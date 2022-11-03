@@ -31,10 +31,10 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         serializer = ProcessSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         with transaction.atomic():
-            function_queryset = Function.objects.get(function_name = request.data["function_name"])
+            function_queryset = Function.objects.get(function_name=request.data["function_name"])
             valid_data = {
-                "process":request.data["process"],
-                "function_id":function_queryset
+                "process": request.data["process"],
+                "function_id": function_queryset
             }
             process_queryset = ProcessService.get_queryset().filter(id=process_id)
             for data in process_queryset:
@@ -50,7 +50,7 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
          function to delete details of process
         """
         logger.info(f"request data is {request.data}")
-        asset_queryset = AssetService.get_queryset().filter(process_id = process_id)
+        asset_queryset = AssetService.get_queryset().filter(process_id=process_id)
         if asset_queryset:
             message = f"Asset is connected to this Procees {process_id}"
             Status = status.HTTP_405_METHOD_NOT_ALLOWED
@@ -83,8 +83,8 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 if not ProcessService.get_queryset().filter(process__iexact=request.data["process"]).exists():
                     function_queryset = Function.objects.get(function_name=request.data["function_name"])
                     process_list = Process(
-                        process = request.data["process"],
-                        function_id = function_queryset
+                        process=request.data["process"],
+                        function_id=function_queryset
                     )
                     process_list.save()
                     data["Id"] = process_list.id
@@ -161,7 +161,7 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 process_list.append(
                     Process(
                         process=row["process"],
-                        function_id = function_queryset
+                        function_id=function_queryset
                     )
                 )
             Process.objects.bulk_create(process_list)
@@ -186,14 +186,14 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
          function to get details of process
         """
         logger.info(f"request data is {request.data}")
-        queryset = ProcessService.get_queryset().filter(end_date__isnull = True)
+        queryset = ProcessService.get_queryset().filter(end_date__isnull=True)
         queryset_details = []
         for data in queryset:
             query_data = ({
                 "Id": data.id,
                 "Process": data.process,
                 "Function_id": data.function_id.id,
-                "Function_name":data.function_id.function_name,
+                "Function_name": data.function_id.function_name,
                 "Location_id": data.function_id.location_id.id,
                 "Location": data.function_id.location_id.location,
                 "Entity_id": data.function_id.location_id.entity_id.id,
@@ -220,8 +220,8 @@ class ProcessViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 query_data = ({
                     "Id": data.id,
                     "Process": data.process,
-                    "Function_id":data.function_id.id,
-                    "Function_name":data.function_id.function_name
+                    "Function_id": data.function_id.id,
+                    "Function_name": data.function_id.function_name
                 })
                 queryset_details.append(query_data)
 

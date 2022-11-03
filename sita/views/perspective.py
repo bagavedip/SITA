@@ -137,6 +137,9 @@ class PerspectiveViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def fetch_incident_tags(self, request):
+        """
+        Function for fetching incident tags
+        """
         try:
             serializer = request.data.get("inputFilter")
             queryset = FACT_INSIGHTS.objects.all()
@@ -156,6 +159,9 @@ class PerspectiveViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def fetch_asset_tags(self, request):
+        """
+        Function for fetching asset tags
+        """
         try:
             serializer = request.data.get("inputFilter")
             queryset = FACT_INSIGHTS.objects.all()
@@ -175,6 +181,9 @@ class PerspectiveViewSet(viewsets.GenericViewSet):
             return Response(response_data)
 
     def fetch_enity_tags(self, request):
+        """
+        Function for fetching entity tags
+        """
         try:
             serializer = request.data.get("inputFilter")
             queryset = FACT_INSIGHTS.objects.all()

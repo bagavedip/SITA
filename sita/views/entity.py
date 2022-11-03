@@ -17,6 +17,9 @@ logger = logging.getLogger(__name__)
 
 
 class EntityViewSet(viewsets.ModelViewSet):
+    """
+    Function for handling entities
+    """
     permission_classes = [IsAuthenticated]
     serializer_class = EntitySerializer
 
@@ -27,7 +30,7 @@ class EntityViewSet(viewsets.ModelViewSet):
          Function to get details of entity.
         """
         logger.info(f"request data is {request.data}")
-        queryset = EntityService.get_queryset().filter(end_date__isnull = True)
+        queryset = EntityService.get_queryset().filter(end_date__isnull=True)
         dataset = []
         for entity in queryset:
             data = ({
@@ -188,7 +191,7 @@ class EntityViewSet(viewsets.ModelViewSet):
          Function to delete entity
         """
         logger.info(f"request data is {request.data}")
-        location_queryset = GeoLocationService.get_queryset.filetr(entity_id = entity_id)
+        location_queryset = GeoLocationService.get_queryset.filetr(entity_id=entity_id)
         if location_queryset:
             Status = status.HTTP_405_METHOD_NOT_ALLOWED
             message = f"Location is connected to this Entity {entity_id}"

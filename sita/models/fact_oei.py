@@ -170,5 +170,5 @@ class FACT_OEI(models.Model):
                                                  help_text=_("Is_First_Response_Overdue"))
     target = models.CharField(_("target"), null=True, max_length=2000, help_text=_("Target"))
     group = models.CharField(_("group"), null=True, max_length=2000, help_text=_("group"))
-    resolved_time = models.CharField(_("resolved_time"),max_length=2000, null=True, help_text=_("resolved_time"))
-    response_time = models.CharField(_("reesponse_time"),max_length=2000, null=True, help_text=_("response_time"))
+    resolved_time = models.CharField(_("resolved_time"), max_length=2000, null=True, help_text=_("resolved_time"))
+    response_time = models.CharField(_("reesponse_time"), max_length=2000, null=True, help_text=_("response_time"))

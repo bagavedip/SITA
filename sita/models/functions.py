@@ -9,7 +9,7 @@ class Function(models.Model):
     """
     id = models.BigAutoField(_("id"), primary_key=True)
     function_name = models.CharField(_("function_name"), max_length=50, null=True, help_text=_("Function Name"))
-    location_id = models.ForeignKey(GeoLocation, verbose_name=_("localtion_id"), on_delete=models.CASCADE,
+    location_id = models.ForeignKey(GeoLocation, verbose_name=_("location_id"), on_delete=models.CASCADE,
                                     related_name="+")
     end_date = models.DateField(_("end_date"), null=True, help_text=_("Delete Date"))
     

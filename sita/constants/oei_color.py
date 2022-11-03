@@ -174,5 +174,3 @@ class ColorMap:
             return random.choice(list(Response_Time.values()))
         elif layer_filter == 'Reopened':
             return random.choice(list(Reopened.values()))
-
-
