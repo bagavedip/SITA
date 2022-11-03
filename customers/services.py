@@ -11,4 +11,7 @@ class CustomerService:
 
     @staticmethod
     def get_tenant(schema_name):
+        """
+         fetch tenant schema_name
+        """
         return CustomerService.get_queryset().get(schema_name=schema_name)
