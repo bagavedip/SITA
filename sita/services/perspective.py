@@ -309,7 +309,7 @@ class PerspectiveService:
             filter_found = Q(**found_filters)
             query_data = Perspective.objects.filter(filter_q).filter(filter_found).values(
                 *response_obj.select_cols)
-        query_data = sorted(query_data, key=itemgetter('created_at'), reverse=True)
+        query_data = sorted(query_data, key=itemgetter('updated_at'), reverse=True)
         return query_data
 
     @staticmethod
