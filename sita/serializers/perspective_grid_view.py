@@ -1,3 +1,5 @@
+import datetime
+
 from sita.constants import perspective_constants
 
 
@@ -14,8 +16,9 @@ class PerspectiveGridSerializer:
         self.end_date = request_data.get('toDate')
         self.dropdownFilters = request_data.get("dropdownFilters")
         self.filters = {}
+        self.time_change = datetime.timedelta(hours=23, minutes=59, seconds=59)
         self.filters['updated_at__gte'] = self.start_date
-        self.filters['updated_at__lte'] = self.end_date
+        self.filters['updated_at__lte'] = self.end_date + self.time_change
 
         self.columns_headers = []
         self.select_cols = []
