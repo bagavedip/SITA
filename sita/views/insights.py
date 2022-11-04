@@ -317,17 +317,17 @@ class InsightHub(viewsets.GenericViewSet):
         response_data = [
             {
                 "name": "Detects",
-                "value": "5 M",
+                "value": "5 Million",
                 "color": "#EB6363"
             },
             {
                 "name": "Events",
-                "value": "1.3M",
+                "value": "1.3 Million",
                 "color": "#7394EA"
             },
             {
                 "name": "Incidents",
-                "value": "300",
+                "value": "300 Million",
                 "color": "#EB6363"
             },
             {
