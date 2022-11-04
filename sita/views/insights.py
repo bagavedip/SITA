@@ -9,7 +9,7 @@ from collections import defaultdict as dd
 
 from sita.models.fact_insights import FACT_INSIGHTS
 from sita.serializers.hub_timeline import HubTimeline
-from sita.services.insight_hub_service import HubService
+from sita.services.insight_hub_service import InsightService
 from sita.constants.dataset import Dataset
 from sita.serializers.hub import InsightsSerializer
 from sita.serializers.ticket_details import TicketDetailsSerializer
@@ -95,7 +95,7 @@ class InsightHub(viewsets.GenericViewSet):
         logger.debug(f"Received request body {request.data}")
 
         serializser = InsightsSerializer(request)
-        result = HubService.get_insights(serializser)
+        result = InsightService.get_insights(serializser)
         hirarchial_data = self.convert_data(result)
         self.update_events(hirarchial_data)
         incidents_high = serializser.donut_center['2. Alta'] if "2. Alta" in serializser.donut_center.keys() else 0
@@ -224,7 +224,7 @@ class InsightHub(viewsets.GenericViewSet):
         """
         request_data = request.data
         incident = request_data.get("incidentId", None)
-        queryset = HubService.asset_details(incident)
+        queryset = InsightService.asset_details(incident)
         return Response(queryset, status=status.HTTP_201_CREATED)
 
     def assign_task(self, request):
@@ -241,7 +241,7 @@ class InsightHub(viewsets.GenericViewSet):
             with transaction.atomic():
                 selected_incidents = serializer.get("selectedIncidents")
                 user = serializer.get("userName")
-                comment = HubService.assign_user(selected_incidents, user)
+                comment = InsightService.assign_user(selected_incidents,user)
             logger.debug("Database transaction finished")
             # response formatting
             response_data = {
@@ -257,7 +257,7 @@ class InsightHub(viewsets.GenericViewSet):
          Timeline view for insights
         """
         serializser = HubTimeline(request)
-        result = HubService.hub_timeline(serializser)
+        result = InsightService.hub_timeline(serializser)
         return Response(result, status=status.HTTP_200_OK)
 
     def incident_comment(self, request):
@@ -273,7 +273,7 @@ class InsightHub(viewsets.GenericViewSet):
             with transaction.atomic():
                 selected_incidents = serializer.get("selectedIncidents")
                 comment = serializer.get("Comment")
-                comment = HubService.incident_comment(selected_incidents, comment)
+                comment = InsightService.incident_comment(selected_incidents,comment)
             logger.debug("Database transaction finished")
             # response formatting
             response_data = {
@@ -298,7 +298,7 @@ class InsightHub(viewsets.GenericViewSet):
                 soar_id = serializer.get("incident")
                 update = serializer.get("update")
                 update_by = serializer.get("update_by")
-                updates = HubService.add_update(soar_id,update,update_by)
+                updates = InsightService.add_update(soar_id,update,update_by)
             logger.debug("Database transaction finished")
 
             # response formatting

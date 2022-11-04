@@ -12,7 +12,7 @@ from sita.serializers.insights import InsightsSerializer
 from sita.serializers.Insights_timeline import InsightsTimeline
 
 
-class HubService:
+class InsightService:
     """
      Services for Hub models
     """
@@ -56,7 +56,7 @@ class HubService:
         """
         Function for getting asset details
         """
-        data = HubService.get_queryset().filter(soar_id=incident)
+        data = InsightService.get_queryset().filter(soar_id=incident)
         updates = HubUpdate.objects.all().filter(soar_id=incident).order_by('-update_date')[:6]
         desktop = 0
         laptop = 0
