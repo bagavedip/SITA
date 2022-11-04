@@ -14,7 +14,6 @@ class UserSerializer(serializers.Serializer):
     is_admin = serializers.BooleanField(required=True)
     role_id = serializers.IntegerField(source='role_id.id', required=False)
     role = serializers.CharField(source='role_id.name', required=False)
-    phone_code = serializers.CharField(max_length=10, required=False)
     phone_number = serializers.CharField(max_length=20, required=False)
 
     class Meta:
@@ -93,7 +92,6 @@ class UserUpdateSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     first_name = serializers.CharField(max_length=256, required=True)
     last_name = serializers.CharField(max_length=256, required=True)
-    phone_code = serializers.CharField(max_length=10, required=False, allow_null=True)
     phone_number = serializers.CharField(max_length=20, required=False, allow_null=True)
     profile_photo = serializers.CharField(required=False, allow_null=True)
     profile_photo_name = serializers.CharField(max_length=100, required=False, allow_null=True)

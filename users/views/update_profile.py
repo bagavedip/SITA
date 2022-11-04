@@ -27,7 +27,6 @@ class UserUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 "email": request_user["email"],
                 "first_name": request_user["firstName"],
                 "last_name": request_user["lastName"],
-                "phone_code": None if not request_user["phone_code"] else request_user["phone_code"],
                 "phone_number": None if not request_user["phone_number"] else request_user["phone_number"],
                 "profile_photo": None if not request_user["profile_photo"] else request_user["profile_photo"],
                 "profile_photo_name": None if not request_user["profile_photo_name"] else request_user["profile_photo_name"]
@@ -43,8 +42,6 @@ class UserUpdate(mixins.CreateModelMixin, viewsets.GenericViewSet):
                     updated_user.last_name = validated_data["last_name"]
                 if request_user.get("phone_number"):
                     updated_user.phone_number = validated_data["phone_number"]
-                if request_user.get("phone_code"):
-                    updated_user.phone_code = validated_data["phone_code"]
                 updated_user.profile_photo = None if request_user.get("profile_photo") is None else ContentFile(
                     request_user.get("profile_photo"), name=request_user.get("profile_photo_name"))
 
