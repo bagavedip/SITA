@@ -15,7 +15,7 @@ from sita.serializers.oei_ticket_details import TicketDetailsSerializer
 logger = logging.getLogger(__name__)
 
 
-class OEIService:
+class OeiService:
     """
      Services for ITSM Models
     """
@@ -31,7 +31,7 @@ class OEIService:
          Function to return filter asset name
         """
 
-        filtered_data = OEIService.get_queryset().filter(Asset_Name=asset)
+        filtered_data = OeiService.get_queryset().filter(Asset_Name=asset)
         return filtered_data
 
     @staticmethod
@@ -61,7 +61,7 @@ class OEIService:
         """
          Functions for details page of OEI tickets
         """
-        data = OEIService.get_queryset().filter(SIEM_id=ticket)
+        data = OeiService.get_queryset().filter(SIEM_id=ticket)
         updates = HubUpdate.objects.all().filter(soar_id=ticket).order_by('-update_date')[:6]
         assets = str(data.count())
         asset_names =[]

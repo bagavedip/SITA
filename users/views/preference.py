@@ -2,6 +2,7 @@
 import logging
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from users.models.preference import Preference
 from users.serializers.preference import PreferenceSerializer
@@ -14,6 +15,8 @@ class PreferenceViewSet(viewsets.GenericViewSet):
     """
     Class for handling User's preference for Dashboard
     """
+
+    permission_classes = [IsAuthenticated]
     def preference_input(self, request):
         """
         Function for saving User's preference

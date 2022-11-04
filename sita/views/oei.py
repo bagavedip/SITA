@@ -10,7 +10,7 @@ from sita.models.fact_oei import FACT_OEI
 from sita.serializers.oei_timeline import OeiTimeline
 from sita.serializers.oei_serializers import OeiSerializer
 from sita.serializers.oei_ticket_details import TicketDetailsSerializer
-from sita.services.oei_service import OEIService
+from sita.services.oei_service import OeiService
 import json
 from collections import defaultdict as dd
 
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class ITSMViewSet(viewsets.ModelViewSet):
 
     permission_classes = [IsAuthenticated]
-    queryset = OEIService.get_queryset()
+    queryset = OeiService.get_queryset()
 
     def convert_data(self, dataset):
         if len(dataset) == 0:
@@ -231,7 +231,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
         """
         logger.debug(f"Received request body {request.data}")
         response_obj = TicketDetailsSerializer(request)
-        data = OEIService.get_tickets(response_obj)
+        data = OeiService.get_tickets(response_obj)
         return Response(response_obj.get_response(data), status=status.HTTP_201_CREATED)
 
     def ticket_details(self, request):
@@ -240,7 +240,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
         """
         request_data = request.data
         ticket = request_data.get("requestId", None)
-        queryset = OEIService.asset_details(ticket)
+        queryset = OeiService.asset_details(ticket)
         return Response(queryset, status=status.HTTP_201_CREATED)
 
     def oei_chart_data(self, request, **kwargs):
@@ -249,7 +249,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
         """
         logger.info("Validating data for Log In.")
         serializser = OeiSerializer(request)
-        result = OEIService.get_oei(serializser)
+        result = OeiService.get_oei(serializser)
         hirarchial_data = self.convert_data(result)
         if len(serializser.datasets) !=1:
             self.update_events(hirarchial_data)
@@ -312,7 +312,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
                 selected_incidents = serializer.get("selectedIncidents")
                 comment = serializer.get("Comment")
-                comment = OEIService.oei_sla_comment(selected_incidents,comment)
+                comment = OeiService.oei_sla_comment(selected_incidents,comment)
             logger.debug("Database transaction finished")
             # response formatting
             response_data = {
@@ -329,7 +329,7 @@ class ITSMViewSet(viewsets.ModelViewSet):
         """
         logger.info(f"request is {request.data}")
         serializser = OeiTimeline(request)
-        result = OEIService.oei_sla_timeline(serializser)
+        result = OeiService.oei_sla_timeline(serializser)
         return Response(result, status=status.HTTP_200_OK)
 
     def ticket_timeline(self, request):
@@ -337,5 +337,5 @@ class ITSMViewSet(viewsets.ModelViewSet):
          Function for time timeline view in OEI(ITSM)
         """
         serializser = OeiTimeline(request)
-        result = OEIService.oei_ticket_timeline(serializser)
+        result = OeiService.oei_ticket_timeline(serializser)
         return Response(result, status=status.HTTP_200_OK)
