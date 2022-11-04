@@ -58,6 +58,8 @@ class InsightService:
         """
         data = InsightService.get_queryset().filter(soar_id=incident)
         updates = HubUpdate.objects.all().filter(soar_id=incident).order_by('-update_date')[:6]
+        assigned_user = AssignTask.objects.filter(incident_id=incident).order_by('-created')[:3]
+        comments = AddComment.objects.filter(incident_id=incident).order_by('-created')[:3]
         desktop = 0
         laptop = 0
         mobile = 0
@@ -156,6 +158,18 @@ class InsightService:
                 "description": data.updates
             }
             updated_data.append(last_updates)
+        for assign in assigned_user:
+            last_assigned = {
+                "updateDateTime": assign.created,
+                "description": assign.assigned_user
+            }
+            updated_data.append(last_assigned)
+        for comment in comments:
+            last_comment = {
+                "updateDateTime": comment.created,
+                "description": comment.comment
+            }
+            updated_data.append(last_comment)
         updates = {
             "title": "UPDATES",
             "data": updated_data

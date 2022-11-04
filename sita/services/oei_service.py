@@ -5,6 +5,7 @@ from datetime import timedelta, datetime
 from dateutil import relativedelta
 from django.db.models import Count, Q
 
+from sita.models import AssignTask
 from sita.models.add_oei_comment import AddOeiComment
 from sita.models.fact_oei import FACT_OEI
 from sita.models.insights_update import HubUpdate
@@ -63,6 +64,8 @@ class OeiService:
         """
         data = OeiService.get_queryset().filter(SIEM_id=ticket)
         updates = HubUpdate.objects.all().filter(soar_id=ticket).order_by('-update_date')[:6]
+        assigned_user = AssignTask.objects.filter(incident_id=ticket).order_by('-created')[:3]
+        comments = AddOeiComment.objects.filter(ticket_id=ticket).order_by('-created')[:3]
         assets = str(data.count())
         asset_names =[]
         request_status={}
@@ -155,6 +158,18 @@ class OeiService:
                 "description":data.updates
             }
             updated_data.append(last_updates)
+        for assign in assigned_user:
+            last_assigned = {
+                "updateDateTime": assign.created,
+                "description": assign.assigned_user
+            }
+            updated_data.append(last_assigned)
+        for comment in comments:
+            last_comment = {
+                "updateDateTime": comment.created,
+                "description": comment.comment
+            }
+            updated_data.append(last_comment)
         updates = {
             "title": "UPDATES",
             "data": updated_data
@@ -379,6 +394,7 @@ class OeiService:
                 start_date = start_date + relativedelta.relativedelta(years=1)
         title = str(title1)+"-"+str(title2)
         newdata = {
+            "label": "Tickets",
             "data": tickets,
             "backgroundColor": "#16293A"
         }

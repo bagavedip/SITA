@@ -11,5 +11,5 @@ OEI_TABLE_HEADER = {
     'DATE RAISED': 'CreatedTime',
     'DUE DATE': 'Ending_time',
     'STATUS': 'RequestStatus',
-    'LEVEL': 'Priority'
+    'PRIORITY': 'Priority'
 }
