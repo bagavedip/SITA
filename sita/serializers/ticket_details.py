@@ -1,4 +1,4 @@
-from sita.constants import constants
+from sita.constants import insights_constants
 
 
 class TicketDetailsSerializer:
