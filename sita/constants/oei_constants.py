@@ -4,7 +4,7 @@ this Dictionary used to pick column name
 """
 id_del = 'IDDEL'
 hire_del = 'HIREDEL'
-INSIGHT_TABLE_HEADER = {
+OEI_TABLE_HEADER = {
     'TICKET': 'SIEM_id',
     'CATEGORY': 'service_category',
     'TICKET DETAILS': 'Description',
