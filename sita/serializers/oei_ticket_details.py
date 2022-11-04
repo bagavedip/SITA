@@ -33,8 +33,8 @@ class TicketDetailsSerializer:
                 
         self.columns_headers = []
         self.select_cols = []
-        for key in oei_constants.INSIGHT_TABLE_HEADER.keys():
-            self.select_cols.append(oei_constants.INSIGHT_TABLE_HEADER.get(key))
+        for key in oei_constants.OEI_TABLE_HEADER.keys():
+            self.select_cols.append(oei_constants.OEI_TABLE_HEADER.get(key))
             self.columns_headers.append(key)
 
     def get_response(self, data):
