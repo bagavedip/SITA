@@ -16,9 +16,8 @@ class User(AbstractUser):
     key = models.BinaryField(_("key"), null=True)
     role_id = models.ForeignKey(Role,null=True,on_delete=models.CASCADE,
                                 help_text=_("Role Name"))
-    phone_code = models.CharField(_("phone code"),max_length=10,null=True)
     phone_number = models.CharField(_("phone number"),max_length=20,null=True)
-    profile_photo = models.FileField(_("profile_photo"),upload_to='profile_photos',help_text="profile_photo",default="")
+    profile_photo = models.FileField(_("profile_photo"),upload_to='profile_photos',help_text="profile_photo",default="", null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['is_admin', 'first_name', 'last_name']  # Email & Password are required by default.
