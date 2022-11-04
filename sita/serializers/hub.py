@@ -1,6 +1,6 @@
-from sita.constants.filter_map import Map
+from sita.constants.insights_filter_map import Map
 from sita.constants.dataset import Dataset
-from sita.constants.color import ColorMap
+from sita.constants.insights_color import ColorMap
 
 
 class InsightsSerializer:
