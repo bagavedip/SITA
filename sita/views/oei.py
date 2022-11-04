@@ -109,11 +109,11 @@ class ITSMViewSet(viewsets.ModelViewSet):
                     "Data": data
                 }
             )
-        except:
+        except Exception as e:
             return Response(
                 {
                     "Status": "Failed",
-                    "Message": "You Don't have data"
+                    "Message": f"{e}"
                 }
             )
 
