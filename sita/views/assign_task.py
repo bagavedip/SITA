@@ -2,6 +2,7 @@ import logging
 
 from django.db import transaction, IntegrityError
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from sita.serializers.assign_user import AssignUserSerializer
@@ -11,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class AssignTaskViewset(viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated]
 
     def assign_user(self, request):
         """
