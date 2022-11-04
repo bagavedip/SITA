@@ -1,4 +1,4 @@
-from sita.constants.filter_map import Map
+from sita.constants.insights_filter_map import Map
 
 
 class InsightsTimeline:
