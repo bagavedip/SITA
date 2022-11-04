@@ -8,10 +8,10 @@ import json
 from collections import defaultdict as dd
 
 from sita.models.fact_insights import FACT_INSIGHTS
-from sita.serializers.insights_timeline import InsightsTimeline
+from sita.serializers.Insights_timeline import InsightsTimeline
 from sita.services.insight_hub_service import InsightService
 from sita.constants.dataset import Dataset
-from sita.serializers.hub import InsightsSerializer
+from sita.serializers.insights import InsightsSerializer
 from sita.serializers.ticket_details import TicketDetailsSerializer
 from sita.services.tickets_service import TicketsService
 
