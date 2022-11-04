@@ -8,7 +8,7 @@ import json
 from collections import defaultdict as dd
 
 from sita.models.fact_insights import FACT_INSIGHTS
-from sita.serializers.hub_timeline import HubTimeline
+from sita.serializers.insights_timeline import InsightsTimeline
 from sita.services.insight_hub_service import InsightService
 from sita.constants.dataset import Dataset
 from sita.serializers.hub import InsightsSerializer
@@ -256,7 +256,7 @@ class InsightHub(viewsets.GenericViewSet):
         """
          Timeline view for insights
         """
-        serializser = HubTimeline(request)
+        serializser = InsightsTimeline(request)
         result = InsightService.hub_timeline(serializser)
         return Response(result, status=status.HTTP_200_OK)
 
