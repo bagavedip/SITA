@@ -16,6 +16,12 @@ class SecurityPulseService:
     """
     Service for Security Pulse model
     """
+
+    @staticmethod
+    def get_queryset():
+        """Function to return all Entity"""
+        return SecurityPulse.objects.all()
+
     @staticmethod
     def update(asset,**kwargs):
         """
@@ -26,6 +32,11 @@ class SecurityPulseService:
         asset.save()
 
         return asset
+
+    @staticmethod
+    def exclude_soft_delete_record():
+        """ function to fetch non deleted record"""
+        return SecurityPulseService.get_queryset().filter(end_date__isnull=True)
 
     @staticmethod
     def create_from_validated_data(user,validated_data):
@@ -78,7 +89,7 @@ class SecurityPulseService:
         Function which fetches security pulse grid
         """
         filter_q = Q(**response_obj.filters)
-        query_data = SecurityPulse.objects.filter(filter_q).values(*response_obj.select_cols)
+        query_data = SecurityPulseService.exclude_soft_delete_record().filter(filter_q).values(*response_obj.select_cols)
         # query_data = reversed(query_data)
         query_data = sorted(query_data,key=itemgetter('updated_at'),reverse=True)
         return query_data
@@ -90,9 +101,11 @@ class SecurityPulseService:
         Args:
             security ([security_pulse]): [Instance of security_pulse]
         """
-        # End date in society
-        security.delete()
-        logger.info(f"Society with ID {security.pk} deleted successfully.")
+        # End date in security
+        if security:
+            security.end_date = security.now()
+            security.save()
+        logger.info(f"security with ID {security.pk} deleted successfully.")
 
     @staticmethod
     def update_from_validated_data(user, validated_data):

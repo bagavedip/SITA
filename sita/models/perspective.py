@@ -81,6 +81,8 @@ class Perspective(models.Model):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
+    end_date = models.DateField(_("end_date"), null=True, help_text=_("Delete Date"))
+
     # foreignkey fields
     created_by = models.ForeignKey(
         User,

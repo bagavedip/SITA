@@ -4,6 +4,8 @@ from operator import itemgetter
 from django.db.models import Q
 from django.utils import timezone
 from django.core.files.base import ContentFile
+from django.utils.datetime_safe import datetime
+
 from sita.models.perspective import Perspective
 from sita.serializers.perspective_grid_view import PerspectiveGridSerializer
 
@@ -19,6 +21,11 @@ class PerspectiveService:
     def get_queryset():
         """Function to return all Entity"""
         return Perspective.objects.all()
+
+    @staticmethod
+    def exclude_soft_delete_record():
+        """ function to fetch non deleted record"""
+        return PerspectiveService.get_queryset().filter(end_date__isnull=True)
 
     @staticmethod
     def update(asset, **kwargs):
@@ -296,7 +303,7 @@ class PerspectiveService:
         filter_q = Q(**response_obj.filters)
         query_data = None
         if not response_obj.dropdownFilters:
-            query_data = Perspective.objects.filter(updated_at__gte=response_obj.start_date, updated_at__lte=response_obj.actual_end_time).values(*response_obj.select_cols)
+            query_data = PerspectiveService.exclude_soft_delete_record().filter(updated_at__gte=response_obj.start_date, updated_at__lte=response_obj.actual_end_time).values(*response_obj.select_cols)
         else:
             found_filters = {}
             name_replacement_dict = {"Perspective Type": "perspective_type",
@@ -307,7 +314,7 @@ class PerspectiveService:
                 else:
                     pass
             filter_found = Q(**found_filters)
-            query_data = Perspective.objects.filter(updated_at__gte=response_obj.start_date, updated_at__lte=response_obj.actual_end_time).filter(filter_found).values(
+            query_data = PerspectiveService.exclude_soft_delete_record().filter(updated_at__gte=response_obj.start_date, updated_at__lte=response_obj.actual_end_time).filter(filter_found).values(
                 *response_obj.select_cols)
         #query_data = sorted(query_data, key=itemgetter('created_at'), reverse=True)
         return query_data
@@ -319,6 +326,8 @@ class PerspectiveService:
         Args:
             perspective ([perspective]): [Instance of perspective]
         """
-        # End date in society
-        perspective.delete()
-        logger.info(f"Society with ID {perspective.pk} deleted successfully.")
+        # End date in perspective
+        if perspective:
+            perspective.end_date = datetime.now()
+            perspective.save()
+        logger.info(f"perspective with ID {perspective.pk} deleted successfully.")
