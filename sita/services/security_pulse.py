@@ -6,6 +6,7 @@ from django.utils import timezone
 from sita.models.security_pulse import SecurityPulse
 from sita.models.security_pulse_image_data import SecurityPulseImage
 from sita.serializers.security_pulse_grid import SecurityPulseGridSerializer
+from users.views.custom_azure import get_blob_with_name
 
 logger = logging.getLogger(__name__)
 
@@ -153,9 +154,9 @@ class SecurityPulseService:
         query = SecurityPulseImage.objects.filter(security_pulse=security_id)
         section = []
         for query in query:
-            image = None if bool(query.image_data) is False else query.image_data.read()
+            image = None if bool(query.image_data) is False else get_blob_with_name("securitypulse", query.image_data)
             info = query.info
-            image_name = None if bool(query.image_data) is False else str(query.image_data).split('/')[2],
+            image_name = None if bool(query.image_data) is False else str(image).split('/')[2],
             image_kwargs = {
                 "imageData": image,
                 "imageDataName": image_name[0],
@@ -225,9 +226,9 @@ class SecurityPulseService:
         else:
             section = []
             for query in query:
-                image = None if bool(query.image_data) is False else query.image_data.read()
+                image = None if bool(query.image_data) is False else get_blob_with_name("securitypulse", query.image_data)
                 info = query.info
-                image_name = None if bool(query.image_data) is False else str(query.image_data).split('/')[2],
+                image_name = None if bool(query.image_data) is False else str(image).split('/')[2],
                 image_kwargs = {
                     "imageData": image,
                     "imageDataName": image_name[0],

@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.core.files.base import ContentFile
 from sita.models.perspective import Perspective
 from sita.serializers.perspective_grid_view import PerspectiveGridSerializer
+from users.views.custom_azure import get_blob_with_name
 
 logger = logging.getLogger(__name__)
 
@@ -204,10 +205,10 @@ class PerspectiveService:
         updated_at = queryset.updated_at
         updated_date = str(updated_at)[:10]
         updated_time = str(updated_at)[11:19]
-        donut_left_graph = None if bool(queryset.donut_left_graph) is False else queryset.donut_left_graph.read()
-        donut_right_graph = None if bool(queryset.donut_right_graph) is False else queryset.donut_right_graph.read()
-        comparative_left_graph = None if bool(queryset.comparative_left_graph) is False else queryset.comparative_left_graph.read()
-        comparative_right_graph = None if bool(queryset.comparative_right_graph) is False else queryset.comparative_right_graph.read()
+        donut_left_graph = get_blob_with_name("perspective", queryset.donut_left_graph)
+        donut_right_graph = get_blob_with_name("perspective", queryset.donut_right_graph)
+        comparative_left_graph = get_blob_with_name("perspective", queryset.comparative_left_graph)
+        comparative_right_graph = get_blob_with_name("perspective", queryset.comparative_right_graph)
         response_data = {
             "perspectiveFormData": {
                 "perspective_id": perspective_id,
@@ -221,14 +222,14 @@ class PerspectiveService:
                 "imageData2": donut_right_graph,
                 "imageData3": comparative_left_graph,
                 "imageData4": comparative_right_graph,
-                "imageData1Name": None if bool(queryset.donut_left_graph) is False else
-                str(queryset.donut_left_graph).split('/')[2],
-                "imageData2Name": None if bool(queryset.donut_right_graph) is False else
-                str(queryset.donut_right_graph).split('/')[2],
-                "imageData3Name": None if bool(queryset.comparative_left_graph) is False else
-                str(queryset.comparative_left_graph).split('/')[2],
-                "imageData4Name": None if bool(queryset.comparative_right_graph) is False else
-                str(queryset.comparative_right_graph).split('/')[2],
+                "imageData1Name": None if bool(donut_left_graph) is False else
+                str(donut_left_graph).split('/')[2],
+                "imageData2Name": None if bool(donut_right_graph) is False else
+                str(donut_right_graph).split('/')[2],
+                "imageData3Name": None if bool(comparative_left_graph) is False else
+                str(comparative_left_graph).split('/')[2],
+                "imageData4Name": None if bool(comparative_right_graph) is False else
+                str(comparative_right_graph).split('/')[2],
             },
             "footerData": {
                 "lastUpdateInformation": {
@@ -256,10 +257,10 @@ class PerspectiveService:
         selected_id = queryset.incident_id
         selected_assets = queryset.selected_assets
         selected_entities = queryset.selected_entities
-        donut_left_graph = None if bool(queryset.donut_left_graph) is False else queryset.donut_left_graph.read()
-        donut_right_graph = None if bool(queryset.donut_right_graph) is False else queryset.donut_right_graph.read()
-        comparative_left_graph = None if bool(queryset.comparative_left_graph) is False else queryset.comparative_left_graph.read()
-        comparative_right_graph = None if bool(queryset.comparative_right_graph) is False else queryset.comparative_right_graph.read()
+        donut_left_graph = get_blob_with_name("perspective", queryset.donut_left_graph)
+        donut_right_graph = get_blob_with_name("perspective", queryset.donut_right_graph)
+        comparative_left_graph = get_blob_with_name("perspective", queryset.comparative_left_graph)
+        comparative_right_graph = get_blob_with_name("perspective", queryset.comparative_right_graph)
         response_data = {
                 "perspectiveTitle": perspective_title,
                 "barGraphTitle": queryset.bar_graph_title,
@@ -278,10 +279,10 @@ class PerspectiveService:
                 "imageData2": donut_right_graph,
                 "imageData3": comparative_left_graph,
                 "imageData4": comparative_right_graph,
-                "imageData1Name": None if bool(queryset.donut_left_graph) is False else str(queryset.donut_left_graph).split('/')[2],
-                "imageData2Name": None if bool(queryset.donut_right_graph) is False else str(queryset.donut_right_graph).split('/')[2],
-                "imageData3Name": None if bool(queryset.comparative_left_graph) is False else str(queryset.comparative_left_graph).split('/')[2],
-                "imageData4Name": None if bool(queryset.comparative_right_graph) is False else str(queryset.comparative_right_graph).split('/')[2],
+                "imageData1Name": None if bool(donut_left_graph) is False else str(donut_left_graph).split('/')[2],
+                "imageData2Name": None if bool(donut_right_graph) is False else str(donut_right_graph).split('/')[2],
+                "imageData3Name": None if bool(comparative_left_graph) is False else str(comparative_left_graph).split('/')[2],
+                "imageData4Name": None if bool(comparative_right_graph) is False else str(comparative_right_graph).split('/')[2],
                 "perspectiveId": perspective_id,
                 "isPublished": queryset.is_published
         }

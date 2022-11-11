@@ -14,6 +14,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.services.user import UserService
+from users.views.custom_azure import get_blob_with_name
 
 logger = logging.getLogger(__name__)
 
@@ -66,10 +67,9 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             pass
         data = self.get_auth_tokens(user)
         data.update({"user": UserSerializer(user).data})
-        data["user"]["profile_photo"] = None if bool(user.profile_photo) is False \
-            else user.profile_photo.read()
-        data["user"]["profile_photo_name"] = None if bool(user.profile_photo) is False \
-            else str(user.profile_photo).split('/')[1]
+        photo = get_blob_with_name("userprofile", user.profile_photo)
+        data["user"]["profile_photo"] = photo
+        data["user"]["profile_photo_name"] = None if bool(photo) is False else str(photo).split('/')[1]
 
         return data
 

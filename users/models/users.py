@@ -4,6 +4,11 @@ from django.utils.translation import gettext_lazy as _
 from users.models.role import Role
 
 from users.managers import CustomUserManager
+from users.views.custom_azure import AzureUpload
+
+
+def upload_to_path(instance, filename):
+    return "https://canetrumsita.blob.core.windows.net/userprofile/{}".format(filename)
 
 
 class User(AbstractUser):
@@ -20,8 +25,9 @@ class User(AbstractUser):
     role_id = models.ForeignKey(Role, null=True, on_delete=models.CASCADE,
                                 help_text=_("Role Name"))
     phone_number = models.CharField(_("phone number"), max_length=20, null=True)
-    profile_photo = models.FileField(_("profile_photo"), upload_to='profile_photos',
-                                     help_text="profile_photo", default="", null=True)
+    profile_photo = models.FileField(_("profile_photo"), upload_to=upload_to_path,
+                                     help_text="profile_photo", default="", null=True,
+                                     storage=AzureUpload(container_name="userprofile"))
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['is_admin', 'first_name', 'last_name']  # Email & Password are required by default.

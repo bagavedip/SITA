@@ -3,6 +3,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from users.models import User
+from users.views.custom_azure import AzureUpload
+
+
+def upload_to_path(instance, filename):
+    return "https://canetrumsita.blob.core.windows.net/userprofile/{}".format(filename)
 
 
 class Perspective(models.Model):
@@ -64,14 +69,14 @@ class Perspective(models.Model):
                                    help_text=_("selected entities"), null=True)
 
     # Image fields
-    donut_left_graph = models.FileField(_("donut left graph"), upload_to="perspective/donut_graph", null=True,
-                                        help_text=_("donut left graph"))
-    donut_right_graph = models.FileField(_("donut left graph"), upload_to="perspective/donut_graph", null=True,
-                                         help_text=_("donut left graph"))
-    comparative_left_graph = models.FileField(_("donut left graph"), upload_to="perspective/comparative_graph",
-                                              null=True, help_text=_("donut left graph"))
-    comparative_right_graph = models.FileField(_("donut left graph"), upload_to="perspective/comparative_graph",
-                                               null=True, help_text=_("donut left graph"))
+    donut_left_graph = models.FileField(_("donut left graph"), upload_to=upload_to_path, null=True,
+                                        help_text=_("donut left graph"), storage=AzureUpload(container_name="perspective"))
+    donut_right_graph = models.FileField(_("donut left graph"), upload_to=upload_to_path, null=True,
+                                         help_text=_("donut left graph"), storage=AzureUpload(container_name="perspective"))
+    comparative_left_graph = models.FileField(_("donut left graph"), upload_to=upload_to_path,
+                                              null=True, help_text=_("donut left graph"), storage=AzureUpload(container_name="perspective"))
+    comparative_right_graph = models.FileField(_("donut left graph"), upload_to=upload_to_path,
+                                               null=True, help_text=_("donut left graph"), storage=AzureUpload(container_name="perspective"))
 
     # Datetime fields
     incident_start_date_time = models.DateTimeField(_("incident_start_date_time"), null=True,

@@ -198,8 +198,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Email sending setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtpout.secureserver.net'
+EMAIL_HOST = config("SMTP_HOST")
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "do-not-reply@netrum-tech.com"
-EMAIL_HOST_PASSWORD = "DoNot@netrum2022"
+EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_HOST_USER = config("HOST_EMAIL")
+EMAIL_HOST_PASSWORD = config("HOST_PASSWORD")
+
+# azure storage
+AZURE_CUSTOM_DOMAIN = config("AZURE_CUSTOM_DOMAIN") #f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+AZURE_STORAGE_KEY_NAME = config("AZURE_STORAGE_KEY_NAME") #  "0wq97V88pjc7y/XUpeQCF92fBNXjkK55YCUWKEbMhfdaHIgfk90bUO9easbmd881T4e8oRKp8pcJ+AStz6UGbg=="
+CONNECT_STR = config("CONNECT_STR")  #'DefaultEndpointsProtocol=https;AccountName=canetrumsita;AccountKey=0wq97V88pjc7y/XUpeQCF92fBNXjkK55YCUWKEbMhfdaHIgfk90bUO9easbmd881T4e8oRKp8pcJ+AStz6UGbg==;EndpointSuffix=core.windows.net'
